@@ -13,6 +13,12 @@
 
 </head>
 <body><center>
+{% if message %}
+        <br><br>
+        <strong>{{ message }}</strong>
+        <br><br>
+    {% endif %}
+
 <form action="{% url 'access:user_choice' %}" method="post" class="login">
     {% csrf_token %}
     What kind of user are you?
@@ -24,11 +30,7 @@
         <i class="icon-arrow-right"></i>
     </button>
     {% endif %}
-</form>
     {% if x %}
-        <br><br>
-       <form action="{% url 'access:user_choice' %}" method="post" class="login">
-            {% csrf_token %}
            <label>Enter Email ID of your superviser</label><br>
             <label>Email ID</label><br>
            <input type="email" name="email_">
@@ -38,7 +40,8 @@
                 <div class="submit">Next</div>
                 <i class="icon-arrow-right"></i>
             </button>
-        </form>
     {% endif %}
+</form>
+
 </center></body>
 </html>

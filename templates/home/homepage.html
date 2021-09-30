@@ -5,9 +5,10 @@
     <title>Homepage</title>
 </head>
 <body>
-{% if obj.is_authenticated == True %}
+{{ obj.is_autheticated }}
+{% ifequal obj.is_authenticated True %}
     okay
     <a href="{% url 'access:logout' %}">Logout</a>
-{% endif %}
+{% endifequal %}
 </body>
 </html>

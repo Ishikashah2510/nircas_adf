@@ -6,6 +6,7 @@ from datetime import date
 from access.isValidPassword import *
 from . import user_object
 from home.views import *
+from access.send_email import *
 
 # Create your views here.''
 
@@ -20,10 +21,10 @@ def login(request):
         if form.is_valid():
             try:
                 user_object.curr_user = Users.objects.get(email=form.cleaned_data['email_'],
-                                              password=form.cleaned_data['password_'],
-                                              user_type=form.cleaned_data['user_type'])
-                curr_user.is_user_authenticated(True)
-                return redirect('/home/homepage/', {'obj': curr_user})
+                                                          password=form.cleaned_data['password_'],
+                                                          user_type=form.cleaned_data['user_type'])
+                user_object.curr_user.is_user_authenticated(True)
+                return homepage(request)
             except Exception as e:
                 print(e)
                 return render(request, 'access/login.html', {'form': form, 'message': 'Forgot your password?'})
@@ -40,7 +41,7 @@ def register(request):
         form = RegistrationForm(request.POST)
         try:
             if form.is_valid():
-                okay, message = data_okay(form)
+                okay, message = data_okay(form, request.POST.get('unique_id'))
                 if okay:
                     form = LoginForm()
                     return render(request, 'access/login.html', {'message': 'Account created successfully!',
@@ -58,7 +59,7 @@ def register(request):
                                                     'user_type': user_object.user_type})
 
 
-def data_okay(form):
+def data_okay(form, uniqueid):
     q1 = Users.objects.filter(Q(email=form.cleaned_data['email']) | Q(mobile_no=form.cleaned_data['mobile_no']))
     if q1:
         return False, 'Account already exists'
@@ -78,36 +79,51 @@ def data_okay(form):
         and at least one of _#!$%&*'''
         return False, password_valid_string
 
+    if not uniqueid == user_object.secret_code:
+        message = 'The unique ID entered is wrong, enter it again'
+        return False, message
+
+    if not send_mail_register(form.cleaned_data['email'], form.cleaned_data['name']):
+        message = 'Seems like you have entered a invalid email ID'
+        return False, message
+
+    form = form.save(commit=False)
+    form.user_type = user_object.user_type
     form.save()
+
     return True, 'Okay'
 
 
 def user_type_redirect(request):
     if request.method == 'POST':
         hidden_val = request.POST.get('formval')
+
         if hidden_val == '1':
             form = UserChoiceForm(request.POST)
             print(form)
+            user_object.user_type = form.cleaned_data['user_type']
+
             if form.cleaned_data['user_type'] == 'Customer':
                 if form.is_valid():
-                    user_object.user_type = 'Customer'
                     form = RegistrationForm()
                     return render(request, 'access/register.html', {'form': form})
+
             else:
-                user_object.user_type = form.cleaned_data['user_type']
-                form = UserChoiceForm(initial={'user_type': form.cleaned_data['user_type']})
+                form = UserChoiceForm(initial={'user_type': user_object.user_type})
                 return render(request, 'access/register_user.html', {'form': form, 'x': 1})
+
         elif hidden_val == '2':
-            # send_email(request.POST.get('email_'))
-            return register(request)
+            if send_mail(request.POST.get('email_'), user_object.user_type):
+                return register(request)
+            else:
+                form = UserChoiceForm(initial={'user_type': user_object.user_type})
+                return render(request, 'access/register_user.html', {'form': form, 'x': 1,
+                                                                     'message': 'Entered ID is not of your supervisor'})
+
     form = UserChoiceForm()
     return render(request, 'access/register_user.html', {'form': form})
 
 
 def logout(request):
-    curr_user.is_user_authenticated(False)
+    user_object.curr_user.is_user_authenticated(False)
     return login(request)
-
-
-def trial_view(request):
-    print('Hello, banana!')

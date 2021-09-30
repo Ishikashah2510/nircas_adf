@@ -27,7 +27,7 @@ class LoginForm(forms.Form):
 class RegistrationForm(ModelForm):
     class Meta:
         model = Users
-        fields = ('name', 'email', 'birthdate', 'mobile_no', 'password', )
+        fields = ('name', 'email', 'birthdate', 'mobile_no', 'password', 'user_type')
         widgets = {
             'name': forms.TextInput(attrs={'placeholder': 'Jane Doe',
                                            'size': 26, 'style': 'height: 24px',},),
@@ -38,6 +38,7 @@ class RegistrationForm(ModelForm):
                                                 'size': 26, 'style': 'height: 24px', }, ),
             'password': forms.PasswordInput(attrs={'placeholder': 'Open Sesame code',
                                                'size': 26, 'style': 'height: 24px', }, ),
+            'user_type': forms.HiddenInput()
         }
 
     repassword_ = forms.CharField(max_length=32, widget=forms.PasswordInput(attrs={'placeholder': 'Re-type Open Sesame code',
