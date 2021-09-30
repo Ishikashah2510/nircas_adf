@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>NirCAS</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'logo.css' %}">
+    <link rel="stylesheet" href="{% static 'font_details.css' %}">
+    <link rel="stylesheet" href="{% static 'FormStyle.css' %}">
+</head>
+<body>
+    {% load static %}
+    <h1 class="heading">NirCAS - Nirma Canteen Automation System</h1>
+    <img src="{% static 'logo.jpeg' %}" class="logo_center_main" alt="NIRCAS Logo">
+    <script type="text/javascript">
+        setTimeout(function() {
+            window.location.href = "/login/";
+        }, 5000);
+    </script>
+</body>
+</html>

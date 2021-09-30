@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Register</title>
+    {%load static %}
+    <link rel="stylesheet" href="../../static/FormStyle.css">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/simple-line-icons/2.4.1/css/simple-line-icons.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Amatic+SC:wght@700&family=Seymour+One&Roboto+Mono:wght@200&display=swap" rel="stylesheet">
+
+</head>
+<body>
+<center>
+    <div class="head">Register at NirCAS</div>
+    {% if message %}
+        <br><br>
+        <strong>{{ message }}</strong>
+        <br><br>
+    {% endif %}
+
+{% if form %}
+    <div class="container">
+    <form action="{% url 'access:register' %}" method="POST" class="login">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <input type="hidden" value="{{ user_type }}">
+        <button type="submit" class="slide">
+            <div class="submit">Register</div>
+            <i class="icon-arrow-right"></i>
+        </button>
+    </form>
+    </div>
+{% endif %}
+<br><br>
+
+</center>
+</body>
+</html>

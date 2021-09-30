@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Login NirCAS</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/simple-line-icons/2.4.1/css/simple-line-icons.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Amatic+SC:wght@700&family=birthstone&family=Seymour+One&Roboto+Mono:wght@200&display=swap" rel="stylesheet">
+
+    {%load static %}
+    <link rel="stylesheet" href="../../static/FormStyle.css">
+
+</head>
+<body>
+<center>
+    <div class="head">NirCAS</div>
+
+    <form action="{% url 'access:login' %}" method="POST" class="login">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit" class="slide">
+            <div class="submit">Log In</div>
+            <i class="icon-arrow-right"></i>
+        </button>
+    </form>
+    <br><br>
+
+    <a href="{% url 'access:user_choice' %}">
+        <button class="fill">Not a member of NirCAS? Quick, Register!</button>
+    </a>
+
+    <br><br>
+    {% if message %}
+        <strong>{{ message }}</strong>
+    {% endif %}
+<br>
+    {% if message == 'Forgot your password?' %}
+        <a>Click here to recover it!</a>
+    {% endif %}
+
+</center>
+</body>
+</html>

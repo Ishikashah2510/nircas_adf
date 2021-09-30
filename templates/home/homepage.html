@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Homepage</title>
+</head>
+<body>
+{% if obj.is_authenticated == True %}
+    okay
+    <a href="{% url 'access:logout' %}">Logout</a>
+{% endif %}
+</body>
+</html>
