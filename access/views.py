@@ -1,7 +1,5 @@
 from django.db.models import Q
 from django.shortcuts import render, redirect
-
-import home.views
 from .models import *
 from .forms import *
 from datetime import date
@@ -9,8 +7,7 @@ from access.isValidPassword import *
 from . import user_object
 from home.views import *
 
-# Create your views here.
-form0 = ''
+# Create your views here.''
 
 
 def go_to_homepage(request):
@@ -39,16 +36,8 @@ def login(request):
 
 
 def register(request):
-    global form0
-
     if request.method == 'POST':
-        form = ''
-        if user_object.user_type == 'Customer':
-            form = RegistrationFormCust(request.POST)
-        elif user_object.user_type == 'Cashier':
-            form = RegistrationFormCash(request.POST)
-        elif user_object.user_type == 'Manager':
-            form = RegistrationFormMan(request.POST)
+        form = RegistrationForm(request.POST)
         try:
             if form.is_valid():
                 okay, message = data_okay(form)
@@ -57,19 +46,16 @@ def register(request):
                     return render(request, 'access/login.html', {'message': 'Account created successfully!',
                                                                  'form': form})
                 else:
-                    return render(request, 'access/register.html', {'message': message, 'form': form0,
+                    return render(request, 'access/register.html', {'message': message, 'form': form,
                                                                     'user_type': user_object.user_type})
         except Exception as e:
             print(e)
-            return render(request, 'access/register.html', {'form': form0, 'message': 'Data entered is invalid',
+            return render(request, 'access/register.html', {'form': form, 'message': 'Data entered is invalid',
                                                             'user_type': user_object.user_type})
-    form0 = RegistrationFormCust()
-    if user_object.user_type == 'Cashier':
-        form0 = RegistrationFormCash()
-    elif user_object.user_type == 'Manager':
-        form0 = RegistrationFormMan()
+    form = RegistrationForm()
 
-    return render(request, 'access/register.html', {'form': form0})
+    return render(request, 'access/register.html', {'form': form,
+                                                    'user_type': user_object.user_type})
 
 
 def data_okay(form):
@@ -98,9 +84,21 @@ def data_okay(form):
 
 def user_type_redirect(request):
     if request.method == 'POST':
-        form = UserChoiceForm(request.POST)
-        if form.is_valid():
-            user_object.user_type = form.cleaned_data['user_type']
+        hidden_val = request.POST.get('formval')
+        if hidden_val == '1':
+            form = UserChoiceForm(request.POST)
+            print(form)
+            if form.cleaned_data['user_type'] == 'Customer':
+                if form.is_valid():
+                    user_object.user_type = 'Customer'
+                    form = RegistrationForm()
+                    return render(request, 'access/register.html', {'form': form})
+            else:
+                user_object.user_type = form.cleaned_data['user_type']
+                form = UserChoiceForm(initial={'user_type': form.cleaned_data['user_type']})
+                return render(request, 'access/register_user.html', {'form': form, 'x': 1})
+        elif hidden_val == '2':
+            # send_email(request.POST.get('email_'))
             return register(request)
     form = UserChoiceForm()
     return render(request, 'access/register_user.html', {'form': form})
@@ -109,3 +107,7 @@ def user_type_redirect(request):
 def logout(request):
     curr_user.is_user_authenticated(False)
     return login(request)
+
+
+def trial_view(request):
+    print('Hello, banana!')

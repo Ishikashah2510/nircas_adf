@@ -17,10 +17,28 @@
     {% csrf_token %}
     What kind of user are you?
     {{ form.as_p }}
+    <input type="hidden" value="1" name="formval">
+    {% if not x %}
     <button type="submit" class="slide">
         <div class="submit">Next</div>
         <i class="icon-arrow-right"></i>
     </button>
+    {% endif %}
 </form>
+    {% if x %}
+        <br><br>
+       <form action="{% url 'access:user_choice' %}" method="post" class="login">
+            {% csrf_token %}
+           <label>Enter Email ID of your superviser</label><br>
+            <label>Email ID</label><br>
+           <input type="email" name="email_">
+            <input type="hidden" value="2" name="formval">
+           <br><br>
+            <button type="submit" class="slide">
+                <div class="submit">Next</div>
+                <i class="icon-arrow-right"></i>
+            </button>
+        </form>
+    {% endif %}
 </center></body>
 </html>

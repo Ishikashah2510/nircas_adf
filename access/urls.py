@@ -10,5 +10,6 @@ urlpatterns = [
     url(r'^register/$', register, name='register'),
     url(r'^user_choice/$', user_type_redirect, name='user_choice'),
     url(r'^logout/$', logout, name='logout'),
+    url(r'^hello/$', trial_view, name='trial'),
     url(r'^home/', include('home.urls'))
 ]

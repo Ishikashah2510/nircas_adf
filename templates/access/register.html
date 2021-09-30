@@ -21,12 +21,27 @@
         <br><br>
     {% endif %}
 
+
 {% if form %}
     <div class="container">
     <form action="{% url 'access:register' %}" method="POST" class="login">
         {% csrf_token %}
         {{ form.as_p }}
         <input type="hidden" value="{{ user_type }}">
+        {% ifequal user_type 'Cashier'%}
+            <br>
+            <label>Unique ID</label>
+            <input type="text" name="unique_id" placeholder="Unique ID sent to the manager's mail">
+            <br><br>
+        {% endifequal %}
+
+        {% ifequal user_type 'Manager'%}
+            <br>
+            <label>Unique ID</label>
+            <input type="text" name="unique_id" placeholder="Unique ID sent to the admin's mail">
+            <br><br>
+        {% endifequal %}
+
         <button type="submit" class="slide">
             <div class="submit">Register</div>
             <i class="icon-arrow-right"></i>
