@@ -52,3 +52,21 @@ class UserChoiceForm(ModelForm):
     class Meta:
         model = Users
         fields = ('user_type', )
+
+
+class ForgotPasswordForm(forms.Form):
+    email_ = forms.CharField(label=mark_safe('Unique code sent on your mail<br>'),
+                             label_suffix='',
+                             widget=forms.TextInput(attrs={'placeholder': 'ABCD123',
+                                                            'size': 30, 'style': 'height: 24px'}))
+    password_ = forms.CharField(max_length=32, widget=forms.PasswordInput(attrs={'placeholder': 'Open Sesame code',
+                                                                                 'size': 26, 'style': 'height: 24px',
+                                                                                 }),
+                                label=mark_safe('Password<br>'),
+                                label_suffix='')
+    repassword_ = forms.CharField(max_length=32,
+                                  widget=forms.PasswordInput(attrs={'placeholder': 'Re-type Open Sesame code',
+                                                                    'size': 26, 'style': 'height: 24px',
+                                                                    }),
+                                  label=mark_safe('Re-enter password<br>'),
+                                  label_suffix='')

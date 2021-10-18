@@ -1,4 +1,5 @@
 from django.db.models import Q
+from django.http import HttpResponseRedirect
 from django.shortcuts import render, redirect
 from .models import *
 from .forms import *
@@ -26,6 +27,7 @@ def login(request):
                 user_object.curr_user.is_user_authenticated(True)
                 return homepage(request)
             except Exception as e:
+                print(form.cleaned_data['email_'], form.cleaned_data['password_'], form.cleaned_data['user_type'])
                 print(e)
                 return render(request, 'access/login.html', {'form': form, 'message': 'Forgot your password?'})
         else:
@@ -127,3 +129,53 @@ def user_type_redirect(request):
 def logout(request):
     user_object.curr_user.is_user_authenticated(False)
     return login(request)
+
+
+def forgot_password(request):
+    if request.method == 'POST':
+        form = ForgotPasswordForm(request.POST)
+        try:
+            if form.is_valid():
+                okay, msg = valid_data(form)
+                if okay:
+                    u = Users.objects.get(email=user_object.email)
+                    u.password = form.cleaned_data['password_']
+                    u.save()
+                    return HttpResponseRedirect('/login/')
+                else:
+                    form = ForgotPasswordForm()
+                    return render(request, 'access/forgot_password.html', {'message': msg, 'form': form})
+        except Exception as e:
+            print(e)
+            return render(request, 'access/forgot_password.html', {'message': 'Data entered is invalid',
+                                                                   'form': form})
+
+    form = ForgotPasswordForm()
+    return render(request, 'access/forgot_password.html', {'form': form})
+
+
+def valid_data(form):
+    try:
+        u = Users.objects.get(email=form.cleaned_data['email_'])
+        return False, "No user exists with the given email ID, are you sure the input is correct?"
+    except:
+        pass
+    if form.cleaned_data['password_'] != form.cleaned_data['repassword_']:
+        return False, 'The passwords do not match, kindly re-enter them'
+
+    if not isValidPassword(form.cleaned_data['password_']):
+        password_valid_string = '''Your password must contain
+        at least 1 digit, 1 capital letter, 
+        and at least one of _#!$%&*'''
+        return False, password_valid_string
+
+    return True, ''
+
+
+def forgot_pass_email(request):
+    if request.method == 'POST':
+        email = request.POST.get('email_')
+        send_forgot_pass_mail(email)
+        user_object.email = email
+        return HttpResponseRedirect('/forgot_password/')
+    return render(request, 'access/forgot_password.html')

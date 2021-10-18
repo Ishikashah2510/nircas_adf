@@ -8,8 +8,8 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Amatic+SC:wght@700&family=birthstone&family=Seymour+One&Roboto+Mono:wght@200&display=swap" rel="stylesheet">
 
-    {%load static %}
-    <link rel="stylesheet" href="../../static/FormStyle.css">
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'FormStyle.css' %}">
 
 </head>
 <body>
@@ -36,9 +36,11 @@
     {% endif %}
 <br>
     {% if message == 'Forgot your password?' %}
-        <a>Click here to recover it!</a>
+        <a href="{% url 'access:forgot_pass_mail' %}">Click here to recover it!</a><br>
     {% endif %}
 
+<br>
+Are you a admin? <a href="http://127.0.0.1:8000/admin/">Click here to sign in!</a>
 </center>
 </body>
 </html>

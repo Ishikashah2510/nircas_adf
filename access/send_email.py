@@ -1,4 +1,5 @@
 from django.core.mail import send_mail as django_send_mail
+from django.http import request
 from django.template.loader import render_to_string
 
 from access.models import Users
@@ -43,6 +44,27 @@ def send_mail_register(receiver, name):
     html_string = render_to_string('access\email_register_file.html',
                                    {
                                        'name': name,
+                                   })
+
+    try:
+        django_send_mail(subject, '', from_email='nircas.official@gmail.com',
+                         recipient_list=[receiver],
+                         html_message=html_string)
+    except Exception as e:
+        print(e)
+        return False
+
+    return True
+
+
+def send_forgot_pass_mail(receiver):
+    subject = 'Forgot your password for NirCAS'
+    length = random.randint(5, 10)
+    secret_code = ''.join(random.choices(string.ascii_letters + string.digits, k=length))
+    user_object.forgot_pass_secret_code = secret_code
+    html_string = render_to_string('access/email_forgot_password.html',
+                                   {
+                                       'secret_code': secret_code,
                                    })
 
     try:
