@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Update Offer</title>
+{% load static %}
+    <link rel="stylesheet" href="{% static 'FormStyle.css' %}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/simple-line-icons/2.4.1/css/simple-line-icons.css" />
+</head>
+<body><center>
+    {% ifequal request.session.user_type 'Manager' %}
+        <form method="post" action="{% url '' %}" class="login">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit" class="slide">
+                    <div class="submit">Update</div>
+                    <i class="icon-pencil"></i>
+            </button>
+        </form>
+    {% else %}
+        <strong>You are not authenticated as a manager</strong>
+    {% endifequal %}
+</center></body>
+</html>

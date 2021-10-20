@@ -1,0 +1,11 @@
+div.offer{
+    width: 500px;
+    height: 80px;
+    border-radius: 50px;
+    display: inline-block;
+    border: solid #f5dd5d;
+    margin-left: 60px;
+    font-family: 'Architects Daughter', cursive;
+    padding-top: 20px;
+    text-align: center;
+}

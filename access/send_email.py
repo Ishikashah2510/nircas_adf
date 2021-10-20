@@ -1,14 +1,12 @@
 from django.core.mail import send_mail as django_send_mail
-from django.http import request
 from django.template.loader import render_to_string
-
 from access.models import Users
 from access import user_object
 import random
 import string
 
 
-def send_mail(receiver, user_type):
+def send_mail(receiver, user_type, request):
     if user_type == 'Cashier':
         try:
             q = Users.objects.get(email=receiver, user_type='Manager')
@@ -21,7 +19,7 @@ def send_mail(receiver, user_type):
     subject = 'Authenticating a {}'.format(user_type)
     length = random.randint(5, 10)
     secret_code = ''.join(random.choices(string.ascii_letters + string.digits, k=length))
-    user_object.secret_code = secret_code
+    request.session['secret_code'] = secret_code
     html_string = render_to_string('access\email_file.html',
                                    {
                                        'user_type': user_type,

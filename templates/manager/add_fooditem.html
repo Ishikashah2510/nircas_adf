@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Add a Food Item</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/simple-line-icons/2.4.1/css/simple-line-icons.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Amatic+SC:wght@700&family=birthstone&family=Seymour+One&Roboto+Mono:wght@200&display=swap" rel="stylesheet">
+
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'FormStyle.css' %}">
+</head>
+<body><center>
+{% ifequal request.session.user_type 'Manager' %}
+    <form method="post" action="{% url 'access:home:manager:add_fooditem' %}" class="login" enctype="multipart/form-data">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit" class="slide">
+            <div class="submit">Add food</div>
+            <i class="icon-book-open"></i>
+        </button>
+    </form>
+{% else %}
+<strong>You are not authenticated as a manager</strong>
+{% endifequal %}
+</center></body>
+</html>

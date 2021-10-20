@@ -21,11 +21,13 @@ def login(request):
         form = LoginForm(request.POST)
         if form.is_valid():
             try:
-                user_object.curr_user = Users.objects.get(email=form.cleaned_data['email_'],
-                                                          password=form.cleaned_data['password_'],
-                                                          user_type=form.cleaned_data['user_type'])
-                user_object.curr_user.is_user_authenticated(True)
-                return homepage(request)
+                curr_user = Users.objects.get(email=form.cleaned_data['email_'],
+                                              password=form.cleaned_data['password_'],
+                                              user_type=form.cleaned_data['user_type'])
+                curr_user.is_user_authenticated(True)
+                request.session['curr_user'] = curr_user.email
+                request.session['user_type'] = form.cleaned_data['user_type']
+                return HttpResponseRedirect('/home/homepage/')
             except Exception as e:
                 print(form.cleaned_data['email_'], form.cleaned_data['password_'], form.cleaned_data['user_type'])
                 print(e)
@@ -43,25 +45,25 @@ def register(request):
         form = RegistrationForm(request.POST)
         try:
             if form.is_valid():
-                okay, message = data_okay(form, request.POST.get('unique_id'))
+                okay, message = data_okay(form, request.POST.get('unique_id'), request)
                 if okay:
                     form = LoginForm()
                     return render(request, 'access/login.html', {'message': 'Account created successfully!',
                                                                  'form': form})
                 else:
                     return render(request, 'access/register.html', {'message': message, 'form': form,
-                                                                    'user_type': user_object.user_type})
+                                                                    'user_type': request.session['user_type']})
         except Exception as e:
             print(e)
             return render(request, 'access/register.html', {'form': form, 'message': 'Data entered is invalid',
-                                                            'user_type': user_object.user_type})
+                                                            'user_type': request.session['user_type']})
     form = RegistrationForm()
 
     return render(request, 'access/register.html', {'form': form,
-                                                    'user_type': user_object.user_type})
+                                                    'user_type': request.session['user_type']})
 
 
-def data_okay(form, uniqueid):
+def data_okay(form, uniqueid, request):
     q1 = Users.objects.filter(Q(email=form.cleaned_data['email']) | Q(mobile_no=form.cleaned_data['mobile_no']))
     if q1:
         return False, 'Account already exists'
@@ -81,7 +83,7 @@ def data_okay(form, uniqueid):
         and at least one of _#!$%&*'''
         return False, password_valid_string
 
-    if not uniqueid == user_object.secret_code:
+    if not uniqueid == request.session['secret_code']:
         message = 'The unique ID entered is wrong, enter it again'
         return False, message
 
@@ -90,7 +92,7 @@ def data_okay(form, uniqueid):
         return False, message
 
     form = form.save(commit=False)
-    form.user_type = user_object.user_type
+    form.user_type = request.session['user_type']
     form.save()
 
     return True, 'Okay'
@@ -103,7 +105,7 @@ def user_type_redirect(request):
         if hidden_val == '1':
             form = UserChoiceForm(request.POST)
             print(form)
-            user_object.user_type = form.cleaned_data['user_type']
+            request.session['user_type'] = form.cleaned_data['user_type']
 
             if form.cleaned_data['user_type'] == 'Customer':
                 if form.is_valid():
@@ -111,14 +113,14 @@ def user_type_redirect(request):
                     return render(request, 'access/register.html', {'form': form})
 
             else:
-                form = UserChoiceForm(initial={'user_type': user_object.user_type})
+                form = UserChoiceForm(initial={'user_type': request.session['user_type']})
                 return render(request, 'access/register_user.html', {'form': form, 'x': 1})
 
         elif hidden_val == '2':
-            if send_mail(request.POST.get('email_'), user_object.user_type):
+            if send_mail(request.POST.get('email_'), request.session['user_type'], request):
                 return register(request)
             else:
-                form = UserChoiceForm(initial={'user_type': user_object.user_type})
+                form = UserChoiceForm(initial={'user_type': request.session['user_type']})
                 return render(request, 'access/register_user.html', {'form': form, 'x': 1,
                                                                      'message': 'Entered ID is not of your supervisor'})
 
@@ -127,7 +129,12 @@ def user_type_redirect(request):
 
 
 def logout(request):
-    user_object.curr_user.is_user_authenticated(False)
+    try:
+        curr_user = Users.objects.get(email=request.session['curr_user'])
+        curr_user.is_user_authenticated(False)
+        del request.session['curr_user']
+    except:
+        pass
     return login(request)
 
 
@@ -138,7 +145,7 @@ def forgot_password(request):
             if form.is_valid():
                 okay, msg = valid_data(form)
                 if okay:
-                    u = Users.objects.get(email=user_object.email)
+                    u = Users.objects.get(email=request.session['fp_email'])
                     u.password = form.cleaned_data['password_']
                     u.save()
                     return HttpResponseRedirect('/login/')
@@ -176,6 +183,6 @@ def forgot_pass_email(request):
     if request.method == 'POST':
         email = request.POST.get('email_')
         send_forgot_pass_mail(email)
-        user_object.email = email
+        request.session['fp_email'] = email
         return HttpResponseRedirect('/forgot_password/')
     return render(request, 'access/forgot_password.html')
