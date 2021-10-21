@@ -132,7 +132,8 @@ def logout(request):
     try:
         curr_user = Users.objects.get(email=request.session['curr_user'])
         curr_user.is_user_authenticated(False)
-        del request.session['curr_user']
+        request.session.flush()
+
     except:
         pass
     return login(request)

@@ -14,9 +14,10 @@
 
 </head>
 <body>
-
-<br><br><br>
 {% ifequal request.session.user_type 'Manager' %}
+
+    {% include 'manager/option_panel.html' %}
+
     {% for food in foods %}
         <div class="fooditem">
             <img src="{{ food.photo.url }}" alt="{{ food.name | title }}"><hr>
@@ -40,10 +41,13 @@
         {% if forloop.counter == 4 %}
             <br><br><br>
         {% endif %}
+        {% if not foods %}
+            <h1>No food items :(</h1>
+        {% endif %}
     {% endfor %}
     <br>
 {% else %}
-<strong>You are not authenticated as a manager</strong>
+<center><strong>You are not authenticated as a manager</strong></center>
 {% endifequal %}
 
 </body>

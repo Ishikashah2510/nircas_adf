@@ -42,9 +42,12 @@ def update(request):
         form = UpdateFoodForm(request.POST, instance=fo)
         if form.is_valid():
             form.save()
-            return HttpResponseRedirect('/home/manager/view_fooditem')
-
-    return HttpResponse('No item has been selected to update, kindly change the url')
+            return HttpResponseRedirect('/home/manager/view_fooditem/')
+        else:
+            print('hereee')
+            return render(request, 'manager/update_fooditem.html', {'form': form})
+    else:
+        return HttpResponse('No item has been selected to update, kindly change the url')
 
 
 def delete_fooditem(request, pk=0):
@@ -87,3 +90,18 @@ def delete_offer(request, pk=0):
     q = EverydayOffers.objects.get(pk=pk)
     q.delete()
     return HttpResponseRedirect('/home/manager/view_offer/')
+
+
+def update_offer(request):
+    if request.method == 'POST':
+        pk = request.POST.get('pk')
+        discount = request.POST.get('discount')
+        q = EverydayOffers.objects.get(pk=pk)
+        q.discount = discount
+        q.save()
+        return HttpResponseRedirect('/home/manager/view_offer/')
+    return HttpResponse('Sorry, you have to sign in as a manager to access this page')
+
+
+def homepage(request):
+    return render(request, 'manager/homepage.html')

@@ -8,7 +8,9 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/simple-line-icons/2.4.1/css/simple-line-icons.css" />
 </head>
 <body><center>
+
     {% ifequal request.session.user_type 'Manager' %}
+        {% include 'manager/option_panel.html' %}
         <form method="post" action="{% url 'access:home:manager:update_withform' %}" class="login">
             {% csrf_token %}
             {{ form.as_p }}
@@ -17,8 +19,11 @@
                     <i class="icon-pencil"></i>
             </button>
         </form>
+        {% if form.errors %}
+            <p>{{ error }}</p>
+        {% endif %}
     {% else %}
-        <strong>You are not authenticated as a manager</strong>
+        <center><strong>You are not authenticated as a manager</strong></center>
     {% endifequal %}
 
 </center></body>

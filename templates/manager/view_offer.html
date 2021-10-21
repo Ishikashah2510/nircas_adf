@@ -10,6 +10,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Architects+Daughter&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'UpdateOffer.css' %}">
 
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
@@ -17,11 +18,26 @@
 </head>
 <body>
 <center>
+{% include 'manager/option_panel.html' %}
 {% ifequal request.session.user_type 'Manager' %}
     {% for offer in offers %}
         <div class="offer">
             You are offering <b>{{ offer.discount }} % </b> discount on item <b>{{ offer.food_id }}</b>
             <br><br>
+            <button class="open-button" onclick="openForm()"><i class="fa fa-pencil-square-o" style="font-size: 25px;"></i></button>
+
+            <div class="form-popup" id="myForm">
+              <form action="{% url 'access:home:manager:update_offer' %}" class="form-container" method="post">
+                  {% csrf_token %}
+                <input type="hidden" name="pk" value="{{ offer.id }}">
+                  {{ offer.food_id }}<br>
+                  <label>New Discount</label>
+                  <input type="text" name="discount" value="{{ offer.discount }}">
+                  <button type="submit" class="btn">Update</button>
+                  <button type="button" class="btn cancel" onclick="closeForm()">Close</button>
+              </form>
+            </div>
+
             <a onclick='if(confirm("Are you sure you want to delete {{ food.name }}?")){location.href = "{% url 'access:home:manager:delete_offer' offer.id %}"};'>
                 <button type="button" class="del"><i class="fa fa-trash-o" style="font-size: 27px"></i></button>
             </a>
@@ -36,5 +52,17 @@
 {% endifequal %}
 
 </center>
+
+<script>
+function openForm() {
+  document.getElementById("myForm").style.display = "block";
+}
+
+function closeForm() {
+  document.getElementById("myForm").style.display = "none";
+}
+</script>
+
+
 </body>
 </html>

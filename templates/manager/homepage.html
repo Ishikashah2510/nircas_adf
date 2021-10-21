@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Manager Homepage</title>
+    <style type="text/css">
+            body {
+        margin: 0;
+        height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    ul {
+        padding: 0;
+        list-style-type: none;
+    }
+
+    li {
+        font-size: 25px;
+        width: 16em;
+        height: 2em;
+        text-align: center;
+        line-height: 2em;
+        font-family: sans-serif;
+        text-transform: capitalize;
+        position: relative;
+        transition: 0.5s;
+        margin: 0.8em;
+        color: #773784;
+    }
+
+    li::before,
+    li::after {
+        content: '';
+        position: absolute;
+        width: 0.6em;
+        height: 0.6em;
+        background-color: #773784;
+        border-radius: 50%;
+        transition: 0.5s cubic-bezier(0.5, -0.5, 0.25, 1.5);
+        top: calc(50% - 0.6em / 2);
+    }
+
+    li::before {left: 0; z-index: -1;}
+    li::after {right: 0; z-index: -2;}
+
+    li:hover {
+        color: white;
+    }
+
+    li:hover::before,
+    li:hover::after {
+        width: 100%;
+        height: 100%;
+        border-radius: 0;
+        background-color: #5897fb;
+    }
+
+    li:hover::before {
+        top: 0;
+    }
+
+    li:hover::after {
+        right: -0.4em;
+        filter: brightness(0.8);
+    }
+        body{
+            background-color: #bfe9ff;
+            background-size: cover;
+        }
+    </style>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+</head>
+<body>
+<ul>
+  <li><a href="{% url 'access:home:manager:add_fooditem' %}" style="text-decoration: none; color: #DBC652">Add Food Item</a></li>
+  <li><a class="navbar-link" href="{% url 'access:home:manager:view_fooditem' %}" style="text-decoration: none; color: #DBC652">View Food Items</a></li>
+    <li><a class="navbar-link" href="{% url 'access:home:manager:add_offer' %}" style="text-decoration: none; color: #DBC652">Add Offer</a></li>
+    <li><a class="navbar-link" href="{% url 'access:home:manager:view_offer' %}" style="text-decoration: none; color: #DBC652">View Offers</a></li>
+    <li><a class="navbar-link" href="{% url 'access:home:manager:view_offer' %}" style="text-decoration: none; color: #DBC652">View User Feedback</a></li>
+</ul>
+</body>
+</html>

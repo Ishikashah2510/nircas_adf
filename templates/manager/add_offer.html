@@ -9,6 +9,9 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/simple-line-icons/2.4.1/css/simple-line-icons.css" />
 </head>
 <body><center>
+
+{% include 'manager/option_panel.html' %}
+
 {% ifequal request.session.user_type 'Manager' %}
     <form action="{% url 'access:home:manager:add_offer' %}" method="post" class="login">
         {% csrf_token %}

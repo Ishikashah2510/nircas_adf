@@ -12,7 +12,7 @@ class AddFoodForm(forms.ModelForm):
             'name': forms.TextInput(attrs={'placeholder': "What's my name?😋"}),
             'cost': forms.NumberInput(attrs={'placeholder': '₹ 99.99',},),
             'description': forms.Textarea(attrs={'placeholder': 'Describe me',
-                                                 'style': 'height: 40px', }),
+                                                 'style': 'height: 100px', }),
             'serves': forms.NumberInput(attrs={'placeholder': 'How many people am I sufficient for?',
                                                'size': 40, 'style': 'width: 250px'})
         }
@@ -26,7 +26,7 @@ class UpdateFoodForm(forms.ModelForm):
             'name': forms.TextInput(attrs={'placeholder': "What's my name?😋", "readonly": True}),
             'cost': forms.NumberInput(attrs={'placeholder': '₹ 99.99', }, ),
             'description': forms.Textarea(attrs={'placeholder': 'Describe me',
-                                                 'style': 'height: 40px', }),
+                                                 'style': 'height: 100px', }),
             'serves': forms.NumberInput(attrs={'placeholder': 'How many people am I sufficient for?',
                                                'size': 40, 'style': 'width: 250px'})
         }
