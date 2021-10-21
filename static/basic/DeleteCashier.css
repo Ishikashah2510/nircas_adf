@@ -1,0 +1,14 @@
+div.del_cashier{
+    display: inline-block;
+    padding: 60px;
+}
+
+p.del_name{
+    font-family: 'IM Fell English SC', serif;
+    font-size: 30px;
+}
+
+p.del_email{
+    font-family: 'IM Fell English SC', serif;;
+    font-size: 20px;
+}

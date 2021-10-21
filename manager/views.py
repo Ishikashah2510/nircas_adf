@@ -2,6 +2,7 @@ from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render
 from .models import *
 from .forms import *
+from access.models import *
 
 # Create your views here.
 
@@ -44,7 +45,6 @@ def update(request):
             form.save()
             return HttpResponseRedirect('/home/manager/view_fooditem/')
         else:
-            print('hereee')
             return render(request, 'manager/update_fooditem.html', {'form': form})
     else:
         return HttpResponse('No item has been selected to update, kindly change the url')
@@ -105,3 +105,14 @@ def update_offer(request):
 
 def homepage(request):
     return render(request, 'manager/homepage.html')
+
+
+def del_cashier_redirect(request):
+    all_users = Users.objects.filter(user_type='Cashier')
+    return render(request, 'manager/delete_cashier.html', {'users': all_users})
+
+
+def del_cashier(request, pk=''):
+    q = Users.objects.get(pk=pk)
+    q.delete()
+    return HttpResponseRedirect('/home/manager/del_redirect/')

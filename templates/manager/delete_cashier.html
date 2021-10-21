@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Delete cashier</title>
+    {% load static %}
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="{% static 'DeleteCashier.css' %}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IM+Fell+English+SC&display=swap" rel="stylesheet">
+</head>
+<body>
+<center>
+    {% ifequal request.session.user_type 'Manager' %}
+
+        {% include 'manager/option_panel.html' %}
+
+        {% for cashier in users %}
+            <div class="del_cashier">
+                <p class="del_name">{{ cashier.name }}</p>
+                <p class="del_email">{{ cashier.email }}</p>
+
+                <a onclick='if(confirm("Are you sure you want to delete {{ cashier.name }}?")){location.href = "{% url 'access:home:manager:delete_cashier' cashier.email %}"};'>
+                <button type="button" class="del"><i class="fa fa-trash-o" style="font-size: 27px"></i></button>
+            </a>
+
+            {% if forloop.counter|divisibleby:"4" %}
+            {% endif %}
+
+            </div>
+        {% endfor %}
+    {% else %}
+    <strong>You are not authenticated as a Manager</strong>
+    {% endifequal %}
+</center>
+</body>
+</html>

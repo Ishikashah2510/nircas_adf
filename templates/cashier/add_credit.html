@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Add credit for a user</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Amatic+SC:wght@700&family=birthstone&family=Seymour+One&Roboto+Mono:wght@200&display=swap" rel="stylesheet">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'FormStyle.css' %}">
+</head>
+<body>
+<center>
+    {% ifequal request.session.user_type 'Cashier' %}
+        <form method="post" action="{% url 'access:home:cashier:add_credit' %}" class="login" enctype="multipart/form-data">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit" class="slide">
+                <div class="submit">Add Credit</div>
+                <i class="fa fa-money"></i>
+            </button>
+        </form>
+    {% else %}
+    <strong>You are not authenticated as a cashier</strong>
+    {% endifequal %}
+</center>
+</body>
+</html>

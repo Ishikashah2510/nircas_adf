@@ -10,9 +10,10 @@
 </head>
 <body><center>
 
-{% include 'manager/option_panel.html' %}
-
 {% ifequal request.session.user_type 'Manager' %}
+
+    {% include 'manager/option_panel.html' %}
+
     <form action="{% url 'access:home:manager:add_offer' %}" method="post" class="login">
         {% csrf_token %}
         {{ form.as_p }}

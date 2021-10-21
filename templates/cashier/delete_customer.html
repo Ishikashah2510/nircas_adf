@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Delete customer</title>
+    {% load static %}
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="{% static 'FormStyle.css' %}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Comic+Neue:ital,wght@1,300;1,700&display=swap" rel="stylesheet">
+</head>
+<body>
+<center>
+    {% ifequal request.session.user_type 'Cashier' %}
+        <form method="post" action="{% url 'access:home:cashier:delete_customer' %}" class="login" enctype="multipart/form-data">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit" class="slide">
+                <div class="submit">Delete</div>
+                <i class="fa fa-minus-circle"></i>
+            </button>
+        </form>
+        {% if money_left %}
+            <p>The account has been successfully deleted.</p>
+            <p>Please give Rs. {{ money_left }} to {{ name }} in cash</p>
+        {% endif %}
+    {% else %}
+    <strong>You are not authenticated as a cashier</strong>
+    {% endifequal %}
+</center>
+</body>
+</html>

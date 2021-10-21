@@ -1,8 +1,13 @@
 from django import forms
 from .models import *
+from customer.models import *
 
 
-class TrialForm(forms.ModelForm):
+class AddCreditForm(forms.ModelForm):
     class Meta:
-        model = Orders
+        model = Credit
         fields = '__all__'
+
+
+class DeleteCustomerForm(forms.Form):
+    user_id = forms.ModelChoiceField(queryset=Users.objects.filter(user_type='Customer'))

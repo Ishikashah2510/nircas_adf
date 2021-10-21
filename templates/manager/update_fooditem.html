@@ -10,7 +10,9 @@
 <body><center>
 
     {% ifequal request.session.user_type 'Manager' %}
+
         {% include 'manager/option_panel.html' %}
+
         <form method="post" action="{% url 'access:home:manager:update_withform' %}" class="login">
             {% csrf_token %}
             {{ form.as_p }}

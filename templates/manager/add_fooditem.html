@@ -13,9 +13,11 @@
 </head>
 <body><center>
 
-{% include 'manager/option_panel.html' %}
 
 {% ifequal request.session.user_type 'Manager' %}
+
+    {% include 'manager/option_panel.html' %}
+
     <form method="post" action="{% url 'access:home:manager:add_fooditem' %}" class="login" enctype="multipart/form-data">
         {% csrf_token %}
         {{ form.as_p }}

@@ -15,4 +15,6 @@ urlpatterns = [
     url(r'^view_offer/$', view_offer, name="view_offer"),
     url(r'^update_offer/$', update_offer, name="update_offer"),
     path(r'^delete_offer/<int:pk>/$', delete_offer, name="delete_offer"),
+    path(r'^delete_cashier/<str:pk>/$', del_cashier, name="delete_cashier"),
+    url(r'^del_redirect/$', del_cashier_redirect, name="del_redirect"),
 ]
