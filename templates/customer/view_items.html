@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>View Food Items</title>
+
+    {% load static %}
+    {% load val_at_ind %}
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Comic+Neue:ital,wght@1,300;1,700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'FoodDisplayCustomer.css' %}">
+    <link rel="stylesheet" href="{% static 'AddtoCart_button.css' %}">
+
+</head>
+<body>
+{% ifequal request.session.user_type 'Customer' %}
+
+    {% for food in foods %}
+        <div class="fooditem">
+            <img src="{{ food.photo.url }}" alt="{{ food.name | title }}"><hr>
+            <p class="name">{{ food.name | title }}</p>
+            <p class="description">{{ food.description }}</p>
+            <p class="serves">Serves {{ food.serves }} human(s)</p>
+            <p class="rating_head">Rating : <b>{{ food.rating }}</b></p>
+            <p class="rating_head">Category : <b>{{ food.category }}</b></p>
+            <p class="price">₹ {{ food.cost }}</p>
+            <form action="{% url 'access:home:customer:add_to_cart' %}" method="post">
+                {% csrf_token %}
+
+                <input type="text" hidden value="{{ food.id }}" name="pid">
+                <center><button class="name noselect">Add to cart</button></center>
+            </form>
+
+            <p class="description">In cart : <b>{{ quantity|val_at_key:food.pk }}</b></p>
+        </div>
+        {% if forloop.counter|divisibleby:"4" %}
+            <br><br><br>
+        {% endif %}
+    {% endfor %}
+
+    {% if not foods %}
+        <h1>No food items :(</h1>
+    {% endif %}
+    <br>
+{% else %}
+<center><strong>You are not authenticated as a customer</strong></center>
+{% endifequal %}
+
+</body>
+</html>

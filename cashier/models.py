@@ -15,8 +15,15 @@ def unique_key_generator():
 
 
 class Orders(models.Model):
-    order_id = models.CharField(max_length=10, unique=True, default=unique_key_generator)
+    order_id = models.CharField(max_length=10, unique=True, default=unique_key_generator, auto_created=True)
     user_id = models.ForeignKey(Users, limit_choices_to={'user_type': 'Customer'}, on_delete=models.CASCADE)
-    total_cost = models.FloatField()
-    items = models.ManyToManyField(FoodItems)
+    total_cost = models.FloatField(default=0)
+    items = models.ManyToManyField(FoodItems, through='ItemQuantity', through_fields=('order_id', 'food_id'))
     order_date = models.DateTimeField(auto_now=True)
+
+
+class ItemQuantity(models.Model):
+    order_id = models.ForeignKey(Orders, on_delete=models.DO_NOTHING)
+    quantity = models.IntegerField()
+    rating = models.FloatField(default=5.0)
+    food_id = models.ForeignKey(FoodItems, on_delete=models.DO_NOTHING)

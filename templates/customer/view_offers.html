@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>View offers</title>
+
+    {% load static %}
+
+    <link rel="stylesheet" href="{% static 'OfferDisplay.css' %}">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Architects+Daughter&display=swap" rel="stylesheet">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+    <style type="text/css">
+        div.offer{
+            height: 70px;
+            border: solid #f5dd5d;
+            font-size: 25px;
+        }
+    </style>
+</head>
+<body>
+<center>
+{% ifequal request.session.user_type 'Customer' %}
+
+    {% for offer in offers %}
+        <div class="offer">
+            You get <b>{{ offer.discount }} % </b> discount on <b>{{ offer.food_id }}</b>
+            <br><br>
+        </div>
+
+        {% if forloop.counter|divisibleby:"2" %}
+            <br><br>
+        {% endif %}
+    {% endfor %}
+    {% if not offers %}
+        <strong>Sorry, no offers available. Check back later!</strong>
+    {% endif %}
+{% else %}
+    <strong>You don't seem to be a customer, kindly check your credentials</strong>
+{% endifequal %}
+
+</center>
+</body>
+</html>

@@ -13,7 +13,7 @@ class FoodItems(models.Model):
         ('Breakfast', 'Breakfast')
     ]
 
-    name = models.CharField(max_length=100)
+    name = models.CharField(max_length=100, unique=True)
     cost = models.FloatField()
     description = models.CharField(max_length=160)
     serves = models.IntegerField()

@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>View Orders</title>
+</head>
+<body>
+<center>
+    {% ifequal request.session.user_type 'Customer'  %}
+        {% if message %}
+            <strong>{{ message }}</strong>
+        {% endif %}
+        {% if orders %}
+        <table>
+        <thead>
+        <th>Order ID</th>
+        <th>Items Ordered</th>
+        <th>Total Cost</th>
+        <th>Order Placed On</th>
+        </thead>
+        {% for order in orders %}
+            <tr>
+            <td>{{ order.order_id }}</td>
+            <td>
+                {% for item in order.itemquantity_set.all %}
+                    {{ item.food_id }} : {{ item.quantity }}<br>
+                {% endfor %}
+            </td>
+            <td>{{ order.total_cost }}</td>
+            <td>{{ order.order_date }}</td>
+            </tr>
+        {% endfor %}
+        </table>
+            {% else %}
+            <strong>No orders placed yet! :(</strong>
+        {% endif %}
+    {% else %}
+        <strong>You don't seem to be a customer</strong>
+    {% endifequal %}
+</center>
+</body>
+</html>

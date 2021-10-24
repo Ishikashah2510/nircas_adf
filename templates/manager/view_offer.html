@@ -49,6 +49,9 @@
             <br><br>
         {% endif %}
     {% endfor %}
+    {% if not offers %}
+        <h1>No Offers added :(</h1>
+    {% endif %}
 {% else %}
     <strong>You don't seem to be a manager, kindly check your credentials</strong>
 {% endifequal %}

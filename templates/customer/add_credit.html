@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Add credit</title>
+</head>
+<body>
+<center>
+{% ifequal request.session.user_type 'Customer' %}
+    {% if messages %}
+    {% for message in messages %}
+    <li>{{ message }}</li>
+    {% endfor %}
+    {% endif %}
+<h1>Add credit</h1>
+<form action="{% url 'access:home:customer:add_credit' %}" method="post">
+    {% csrf_token %}
+    Current Credit : {{ curr_credit }}<br><br>
+    <label for="credit_to_add">Add : </label>
+    <input type="number" name="credit_to_add">
+    <input type="submit" value="Add Credit">
+</form>
+
+{% else %}
+    <strong>You don't seem to be a customer and hence you cannot add credit</strong>
+{% endifequal %}
+</center>
+</body>
+</html>

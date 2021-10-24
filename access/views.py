@@ -8,6 +8,7 @@ from access.isValidPassword import *
 from . import user_object
 from home.views import *
 from access.send_email import *
+from customer.models import *
 
 # Create your views here.''
 
@@ -47,6 +48,9 @@ def register(request):
             if form.is_valid():
                 okay, message = data_okay(form, request.POST.get('unique_id'), request)
                 if okay:
+                    if request.session['user_type'] == 'Customer':
+                        c = Credit(user_id=Users.objects.get(email=form.cleaned_data['email']))
+                        c.save()
                     form = LoginForm()
                     return render(request, 'access/login.html', {'message': 'Account created successfully!',
                                                                  'form': form})
@@ -83,7 +87,7 @@ def data_okay(form, uniqueid, request):
         and at least one of _#!$%&*'''
         return False, password_valid_string
 
-    if not uniqueid == request.session['secret_code']:
+    if request.session['user_type'] != 'Customer' and not uniqueid == request.session['secret_code']:
         message = 'The unique ID entered is wrong, enter it again'
         return False, message
 
@@ -136,7 +140,7 @@ def logout(request):
 
     except:
         pass
-    return login(request)
+    return HttpResponseRedirect('/login/')
 
 
 def forgot_password(request):

@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Delete Account</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'FormStyle.css' %}">
+    <link rel="stylesheet" href="{% static 'thank_you.css' %}">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Festive&family=Open+Sans+Condensed:ital,wght@1,300&display=swap" rel="stylesheet">
+</head>
+<body>
+<center>
+    {% ifequal request.session.user_type 'Customer' %}
+        <form method="post" action="{% url 'access:home:customer:delete_account' %}" class="login">
+        {% csrf_token %}
+            <label>Are you sure you want to delete your account?</label><br><br>
+            <button type="submit" class="slide">Yes :(</button>
+        </form>
+        <br>
+        <p class="thank_you">You would have to collect Rs. {{ money }} from the cashier at the counter.</p>
+        <br>
+        <div class="thank_you">
+        We would hate to watch you go, but we understand that you have to let us go. We will always be around here,
+            feel free to make a new account with us. You know where to find us. Thank you! Have a great time ahead!
+        </div>
+{% else %}
+    <strong>You don't seem to be a customer or you haven't logged in, kindly check your credentials</strong>
+{% endifequal %}
+
+</center>
+</body>
+</html>
