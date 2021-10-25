@@ -21,9 +21,15 @@ class Orders(models.Model):
     items = models.ManyToManyField(FoodItems, through='ItemQuantity', through_fields=('order_id', 'food_id'))
     order_date = models.DateTimeField(auto_now=True)
 
+    def __str__(self):
+        return f"{self.user_id} <-----> {self.total_cost}"
+
 
 class ItemQuantity(models.Model):
     order_id = models.ForeignKey(Orders, on_delete=models.DO_NOTHING)
     quantity = models.IntegerField()
     rating = models.FloatField(default=5.0)
     food_id = models.ForeignKey(FoodItems, on_delete=models.DO_NOTHING)
+
+    def __str__(self):
+        return f"{self.quantity} of {self.food_id} was ordered by {self.order_id}"

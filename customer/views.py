@@ -6,6 +6,8 @@ from access.models import Users
 from manager.models import *
 from .models import *
 from cashier.models import *
+from .forms import *
+from .edit_ratings import *
 
 # Create your views here.
 
@@ -182,7 +184,43 @@ def apply_coupon(request, pk=0):
     return view_cart(request, offer.discount / 100, offer.food_id)
 
 
-def add_feedback(request):
-    item = FoodItems.objects.all()
-    item = item[0]
-    return render(request, 'customer/add_feedback.html', {'item': item})
+def add_feedback(request, order_id='0'):
+    if order_id == '0':
+        return HttpResponse('Sorry, you cannot access this page')
+
+    u = Users.objects.get(email=request.session['curr_user'])
+    if request.method == 'POST':
+        form1 = FeedBackForm(request.POST)
+        o = Orders.objects.get(order_id=order_id)
+        items = ItemQuantity.objects.filter(order_id=o)
+        ratings = {}
+        for i in range(len(items)):
+            id_ = str(items[i].food_id)
+            id_ = id_.replace(' ', '_')
+            id_ += 'rating'
+            # print(items[i])
+            ratings[items[i].food_id] = request.POST.get(id_)
+
+        # print(ratings)
+
+        edit_ratings(ratings)
+        if form1.is_valid():
+            q = Feedback(by=u, order_id=o,
+                         message=form1.cleaned_data['message'])
+            q.save()
+        else:
+            print(form1.errors)
+
+        return HttpResponseRedirect('/home/customer/view_orders/')
+
+    form1 = FeedBackForm()
+
+    o = Orders.objects.get(order_id=order_id)
+    items = ItemQuantity.objects.filter(order_id=o)
+
+    return render(request, 'customer/add_feedback.html', {'form1': form1, 'items': items})
+
+
+def view_feedback(request):
+    f = Feedback.objects.filter(by=Users.objects.get(email=request.session['curr_user']))
+    return render(request, 'customer/view_feedback.html', {'feedbacks': f})

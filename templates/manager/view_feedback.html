@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>View Feedbacks</title>
+    {% load static %}
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Comic+Neue:ital,wght@1,300;1,700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'FoodDisplay.css' %}">
+    <link rel="stylesheet" href="{% static 'Update_button.css' %}">
+
+</head>
+<body>
+<center>
+    {% ifequal request.session.user_type 'Manager' %}
+
+        {% include 'manager/option_panel.html' %}
+
+        {% for feedback in feedbacks %}
+            <div>
+                Feedback ID : {{ feedback.feedback_id }}<br>
+                Feedback by : {{ feedback.by }}<br>
+                Items purchased<br>
+                {% for item in feedback.order_id.items.all %}
+                    {{ item }}<br>
+                {% endfor %}
+                Extra description<br>{{ feedback.message }}<br>
+            </div>
+            <br><br>
+        {% endfor %}
+    {% else %}
+        <strong>You don't seem to be a Manager</strong>
+    {% endifequal %}
+
+</center>
+</body>
+</html>

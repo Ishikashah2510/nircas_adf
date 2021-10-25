@@ -13,9 +13,9 @@ urlpatterns = [
     path(r'^place_order/(?P<total_cost>[0-9])/$', place_order, name="place_order"),
     url(r'^view_orders/$', view_orders, name="view_orders"),
     url(r'^add_credit/$', add_credit, name="add_credit"),
-    url(r'^add_feedback/$', add_feedback, name="add_feedback"),
+    url(r'^view_feedback/$', view_feedback, name="view_feedback"),
+    url(r'^add_feedback/(?P<order_id>\w+)/$', add_feedback, name="add_feedback"),
     path(r'^apply_coupon/<int:pk>/$', apply_coupon, name="apply_coupon"),
     path(r'decrease_from_cart/(?P<name>\w+)', decrease_from_cart, name="decrease_from_cart"),
     path(r'increase_from_cart/(?P<name>\w+)', increase_from_cart, name="increase_from_cart"),
-    path('ratings/', include('star_ratings.urls', namespace='ratings')),
 ]

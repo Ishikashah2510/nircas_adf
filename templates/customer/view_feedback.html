@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>View Feedbacks</title>
+</head>
+<body>
+<center>
+    {% ifequal request.session.user_type 'Customer' %}
+        {% for feedback in feedbacks %}
+            <div>
+                Feedback ID : {{ feedback.feedback_id }}<br>
+                Items purchased<br>
+                {% for item in feedback.order_id.items.all %}
+                    {{ item }}<br>
+                {% endfor %}
+                Extra description<br>{{ feedback.message }}<br>
+            </div>
+            <br><br>
+        {% endfor %}
+    {% else %}
+        <strong>You don't seem to be a customer</strong>
+    {% endifequal %}
+
+</center>
+</body>
+</html>

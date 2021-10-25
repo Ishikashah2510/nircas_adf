@@ -3,6 +3,7 @@ from django.shortcuts import render
 from .models import *
 from .forms import *
 from access.models import *
+from customer.models import *
 
 # Create your views here.
 
@@ -116,3 +117,8 @@ def del_cashier(request, pk=''):
     q = Users.objects.get(pk=pk)
     q.delete()
     return HttpResponseRedirect('/home/manager/del_redirect/')
+
+
+def view_feedback(request):
+    f = Feedback.objects.all()
+    return render(request, 'manager/view_feedback.html', {'feedbacks': f})

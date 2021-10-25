@@ -13,6 +13,7 @@ urlpatterns = [
     path(r'^delete_fooditem/<int:pk>/$', delete_fooditem, name="delete_fooditem"),
     url(r'^add_offer/$', add_offer, name="add_offer"),
     url(r'^view_offer/$', view_offer, name="view_offer"),
+    url(r'^view_feedback/$', view_feedback, name="view_feedback"),
     url(r'^update_offer/$', update_offer, name="update_offer"),
     path(r'^delete_offer/<int:pk>/$', delete_offer, name="delete_offer"),
     path(r'^delete_cashier/<str:pk>/$', del_cashier, name="delete_cashier"),

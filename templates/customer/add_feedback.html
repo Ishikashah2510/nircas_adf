@@ -5,13 +5,25 @@
     <title>Give Feedback</title>
 
     {% load static %}
+    {% load val_at_ind %}
 
-    <link rel="stylesheet" href="{% static 'star-ratings/css/star-ratings.css' %}">
-    <script type="text/javascript" src="{% static 'star-ratings/js/dist/star-ratings.min.js' %}"></script>
 </head>
 <body>
 <center>
     {% ifequal request.session.user_type 'Customer' %}
+        <form method="post" action="">
+            {% csrf_token %}
+            {{ form1.as_p }}
+
+            {% for item in items %}
+                <label for="{{ item.food_id|concatenate:'rating' }}">{{ item.food_id }}</label>
+                1.0<input type="range" min="1.0" max="5.0" step="0.1" name="{{ item.food_id|concatenate:'rating' }}"
+                       id="{{ item.food_id|concatenate:'rating' }}">5.0
+                <br>
+            {% endfor %}
+
+            <input type="submit">
+        </form>
     {% else %}
         <strong>You don't seem to be a customer</strong>
     {% endifequal %}
