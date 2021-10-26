@@ -1,15 +1,21 @@
+import os
 from django.contrib import messages
 from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render
-
+from cashier.coupon.make_coupon import *
 from access.models import Users
 from manager.models import *
 from .models import *
 from cashier.models import *
 from .forms import *
 from .edit_ratings import *
+from customer.Bill.make_bill import *
 
 # Create your views here.
+
+
+def homepage(request):
+    return render(request, 'customer/homepage.html')
 
 
 def view_offer(request):
@@ -43,15 +49,18 @@ def delete_account(request):
 
 
 def view_items(request):
-    all_items = FoodItems.objects.all()
-    count_list = {}
+    try:
+        all_items = FoodItems.objects.all()
+        count_list = {}
 
-    u = Users.objects.get(email=request.session['curr_user'])
-    for i in all_items:
-        quantity = len(Cart.objects.filter(user_id=u, item=i))
-        count_list[i.pk] = quantity
+        u = Users.objects.get(email=request.session['curr_user'])
+        for i in all_items:
+            quantity = len(Cart.objects.filter(user_id=u, item=i))
+            count_list[i.pk] = quantity
 
-    return render(request, 'customer/view_items.html', {'foods': all_items, 'quantity': count_list})
+        return render(request, 'customer/view_items.html', {'foods': all_items, 'quantity': count_list})
+    except:
+        return HttpResponse('Please login first')
 
 
 def add_to_cart(request):
@@ -112,7 +121,7 @@ def place_order(request, total_cost=0):
         all_items = Cart.objects.filter(user_id=Users.objects.get(email=request.session['curr_user']))
         all_items_ = all_items.values("item").annotate(item_count=models.Count("pk"))
 
-        if total_cost == 0:
+        if total_cost == 0.0 or total_cost == 0:
             return HttpResponseRedirect('/home/customer/view_cart/')
 
         c = Credit.objects.get(user_id=user)
@@ -123,7 +132,13 @@ def place_order(request, total_cost=0):
             for i in all_items_:
                 q = FoodItems.objects.get(pk=i['item'])
                 x = ItemQuantity(order_id=o, food_id=q, quantity=i['item_count'])
+                make_coupon(x)
                 x.save()
+
+            zip_coupons(o.order_id)
+
+            bill_items = ItemQuantity.objects.filter(order_id=o)
+            make_bill(bill_items, o.order_id)
 
             o.total_cost = total_cost
             o.save()
@@ -134,6 +149,7 @@ def place_order(request, total_cost=0):
             all_items.delete()
 
             o = Orders.objects.filter(user_id=user)
+
             return render(request, 'customer/view_orders.html', {'message': 'Order has been placed', 'orders': o})
 
         else:
@@ -142,12 +158,13 @@ def place_order(request, total_cost=0):
             curr_credit = c.credit
             return render(request, 'customer/add_credit.html', {'curr_credit': curr_credit})
 
+
     return HttpResponse('You must checkout from the cart after verifying your order')
 
 
 def view_orders(request):
     u = Users.objects.get(email=request.session['curr_user'])
-    o = Orders.objects.filter(user_id=u)
+    o = Orders.objects.filter(user_id=u)[::-1]
 
     return render(request, 'customer/view_orders.html', {'orders': o})
 
@@ -222,5 +239,13 @@ def add_feedback(request, order_id='0'):
 
 
 def view_feedback(request):
-    f = Feedback.objects.filter(by=Users.objects.get(email=request.session['curr_user']))
+    f = Feedback.objects.filter(by=Users.objects.get(email=request.session['curr_user']))[::-1]
     return render(request, 'customer/view_feedback.html', {'feedbacks': f})
+
+
+def download_zip(request, order_id=''):
+    path = os.getcwd() + '\\media\\coupons\\'
+    zip_file = open(path + str(order_id) + '.zip', 'rb')
+    response = HttpResponse(zip_file, content_type='application/force-download')
+    response['Content-Disposition'] = 'attachment; filename="%s"' % '{}.zip'.format(order_id)
+    return response

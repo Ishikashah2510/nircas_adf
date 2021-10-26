@@ -8,7 +8,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Comic+Neue:ital,wght@1,300;1,700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="{% static 'FoodDisplay.css' %}">
+    <link rel="stylesheet" href="{% static 'ViewFeedback.css' %}">
     <link rel="stylesheet" href="{% static 'Update_button.css' %}">
 
 </head>
@@ -19,14 +19,16 @@
         {% include 'manager/option_panel.html' %}
 
         {% for feedback in feedbacks %}
-            <div>
-                Feedback ID : {{ feedback.feedback_id }}<br>
-                Feedback by : {{ feedback.by }}<br>
-                Items purchased<br>
+            <div class="feedback">
+                <p class="heading">Feedback ID : {{ feedback.feedback_id }}</p>
+                <p class="heading">Feedback by : {{ feedback.by.name }}</p>
+                <p class="heading">Items purchased</p>
                 {% for item in feedback.order_id.items.all %}
-                    {{ item }}<br>
+                    <p>{{ item }}</p>
                 {% endfor %}
-                Extra description<br>{{ feedback.message }}<br>
+                <p class="heading">Extra description</p>
+                <p>{{ feedback.message }}</p>
+                <p class="heading">Order made on : {{ feedback.order_id.order_date }}</p>
             </div>
             <br><br>
         {% endfor %}

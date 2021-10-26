@@ -133,7 +133,8 @@ USE_TZ = True
 STATIC_URL = '/static/'
 STATIC_DIR = os.path.join(BASE_DIR, 'static/basic')
 STATIC_DIR1 = os.path.join(BASE_DIR, 'media/food')
-STATICFILES_DIRS = [STATIC_DIR, ]
+STATIC_DIR2 = os.path.join(BASE_DIR, 'media/coupons')
+STATICFILES_DIRS = [STATIC_DIR, STATIC_DIR1, STATIC_DIR2, ]
 STATIC_ROOT = os.path.join(BASE_DIR, 'static/')
 
 # Default primary key field type

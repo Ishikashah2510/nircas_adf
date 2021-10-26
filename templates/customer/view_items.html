@@ -17,13 +17,15 @@
 <body>
 {% ifequal request.session.user_type 'Customer' %}
 
+    {% include 'customer/option_panel.html' %}
+
     {% for food in foods %}
         <div class="fooditem">
             <img src="{{ food.photo.url }}" alt="{{ food.name | title }}"><hr>
             <p class="name">{{ food.name | title }}</p>
             <p class="description">{{ food.description }}</p>
             <p class="serves">Serves {{ food.serves }} human(s)</p>
-            <p class="rating_head">Rating : <b>{{ food.rating }}</b></p>
+            <p class="rating_head">Rating : <b>{{ food.rating|floatformat:2 }}</b></p>
             <p class="rating_head">Category : <b>{{ food.category }}</b></p>
             <p class="price">₹ {{ food.cost }}</p>
             <form action="{% url 'access:home:customer:add_to_cart' %}" method="post">

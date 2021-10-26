@@ -5,6 +5,7 @@ from .views import *
 app_name = 'customer'
 
 urlpatterns = [
+    url(r'^homepage/$', homepage, name="homepage"),
     url(r'^view_offer/$', view_offer, name="view_offer"),
     url(r'^delete_account/$', delete_account, name="delete_account"),
     url(r'^view_items/$', view_items, name="view_items"),
@@ -14,6 +15,7 @@ urlpatterns = [
     url(r'^view_orders/$', view_orders, name="view_orders"),
     url(r'^add_credit/$', add_credit, name="add_credit"),
     url(r'^view_feedback/$', view_feedback, name="view_feedback"),
+    url(r'^download_zip/(?P<order_id>\w+)$', download_zip, name="download_zip"),
     url(r'^add_feedback/(?P<order_id>\w+)/$', add_feedback, name="add_feedback"),
     path(r'^apply_coupon/<int:pk>/$', apply_coupon, name="apply_coupon"),
     path(r'decrease_from_cart/(?P<name>\w+)', decrease_from_cart, name="decrease_from_cart"),

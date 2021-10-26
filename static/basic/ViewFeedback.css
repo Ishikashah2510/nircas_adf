@@ -1,0 +1,14 @@
+div.feedback{
+    width: 300px;
+    height: 400px;
+    border-radius: 50px;
+    border: solid #40E0D0;
+    margin-left: 60px;
+    padding: 20px;
+    display: inline-block;
+    word-wrap: break-word;
+}
+
+p.heading{
+    font-weight: bold;
+}

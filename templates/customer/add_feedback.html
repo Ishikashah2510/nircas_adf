@@ -7,11 +7,21 @@
     {% load static %}
     {% load val_at_ind %}
 
+    <link rel="stylesheet" href="{% static 'FormStyle.css' %}">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Amatic+SC:wght@700&family=birthstone&family=Seymour+One&Roboto+Mono:wght@200&display=swap" rel="stylesheet">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
 </head>
 <body>
 <center>
     {% ifequal request.session.user_type 'Customer' %}
-        <form method="post" action="">
+
+        {% include 'customer/option_panel.html' %}
+
+        <form method="post" action="" class="login">
             {% csrf_token %}
             {{ form1.as_p }}
 
@@ -21,8 +31,11 @@
                        id="{{ item.food_id|concatenate:'rating' }}">5.0
                 <br>
             {% endfor %}
-
-            <input type="submit">
+            <br>
+            <button type="submit" class="slide">
+            <div class="submit">Add Feedback</div>
+            <i class="fa fa-comments-o"></i>
+        </button>
         </form>
     {% else %}
         <strong>You don't seem to be a customer</strong>

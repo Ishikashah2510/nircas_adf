@@ -120,5 +120,5 @@ def del_cashier(request, pk=''):
 
 
 def view_feedback(request):
-    f = Feedback.objects.all()
+    f = Feedback.objects.all()[::-1]
     return render(request, 'manager/view_feedback.html', {'feedbacks': f})

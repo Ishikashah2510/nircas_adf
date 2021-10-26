@@ -11,6 +11,8 @@ def homepage(request):
         curr_user = Users.objects.get(email=request.session['curr_user'])
         if request.session['user_type'] == 'Manager':
             return HttpResponseRedirect('/home/manager/homepage/')
+        elif request.session['user_type'] == 'Customer':
+            return HttpResponseRedirect('/home/customer/homepage/')
     except:
         pass
 

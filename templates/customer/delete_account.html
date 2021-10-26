@@ -13,6 +13,9 @@
 <body>
 <center>
     {% ifequal request.session.user_type 'Customer' %}
+
+        {% include 'customer/option_panel.html' %}
+
         <form method="post" action="{% url 'access:home:customer:delete_account' %}" class="login">
         {% csrf_token %}
             <label>Are you sure you want to delete your account?</label><br><br>

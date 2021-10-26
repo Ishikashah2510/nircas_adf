@@ -3,22 +3,37 @@
 <head>
     <meta charset="UTF-8">
     <title>Add credit</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'FormStyle.css' %}">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Amatic+SC:wght@700&family=birthstone&family=Seymour+One&Roboto+Mono:wght@200&display=swap" rel="stylesheet">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
 <body>
 <center>
 {% ifequal request.session.user_type 'Customer' %}
+
+    {% include 'customer/option_panel.html' %}
+
     {% if messages %}
     {% for message in messages %}
     <li>{{ message }}</li>
     {% endfor %}
     {% endif %}
 <h1>Add credit</h1>
-<form action="{% url 'access:home:customer:add_credit' %}" method="post">
+<form action="{% url 'access:home:customer:add_credit' %}" method="post" class="login">
     {% csrf_token %}
     Current Credit : {{ curr_credit }}<br><br>
     <label for="credit_to_add">Add : </label>
     <input type="number" name="credit_to_add">
-    <input type="submit" value="Add Credit">
+    <br><br>
+    <button type="submit" class="slide">
+            <div class="submit">Add credit</div>
+            <i class="fa fa-money"></i>
+        </button>
+
 </form>
 
 {% else %}

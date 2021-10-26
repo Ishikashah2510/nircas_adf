@@ -18,13 +18,14 @@
         div.offer{
             height: 70px;
             border: solid #f5dd5d;
-            font-size: 25px;
         }
     </style>
 </head>
 <body>
 <center>
 {% ifequal request.session.user_type 'Customer' %}
+
+    {% include 'customer/option_panel.html' %}
 
     {% for offer in offers %}
         <div class="offer">

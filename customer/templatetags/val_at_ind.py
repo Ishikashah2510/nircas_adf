@@ -22,9 +22,11 @@ def concatenate(val1, val2):
 def has_feedback(order):
     try:
         q = Feedback.objects.get(order_id=order)
-        print(q)
         return True
     except Exception as e:
-        print(e)
-        print(order)
         return False
+
+@register.filter()
+def concatenate_zip(val1):
+    path = "file:\\\D:\\codes\\python_codes\\sem 7\\nircas_adf\\media\\coupons\\"
+    return path + str(val1) + '.zip'

@@ -3,19 +3,30 @@
 <head>
     <meta charset="UTF-8">
     <title>View Feedbacks</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'ViewFeedback.css' %}">
 </head>
 <body>
 <center>
     {% ifequal request.session.user_type 'Customer' %}
+
+        {% include 'customer/option_panel.html' %}
+
         {% for feedback in feedbacks %}
-            <div>
-                Feedback ID : {{ feedback.feedback_id }}<br>
-                Items purchased<br>
+            <div class="feedback">
+                <p class="heading">Feedback ID : {{ feedback.feedback_id }}</p>
+                <p class="heading">Order ID : {{ feedback.order_id.order_id }}</p>
+                <p class="heading">Items purchased</p>
                 {% for item in feedback.order_id.items.all %}
-                    {{ item }}<br>
+                    <p>{{ item }}</p>
                 {% endfor %}
-                Extra description<br>{{ feedback.message }}<br>
+                <p class="heading">Extra description</p><p>{{ feedback.message }}</p>
+            <p class="heading">Order made on : {{ feedback.order_id.order_date }}</p>
             </div>
+
+            {% if forloop.counter|divisibleby:"3" %}
+            <br><br><br>
+        {% endif %}
             <br><br>
         {% endfor %}
     {% else %}
