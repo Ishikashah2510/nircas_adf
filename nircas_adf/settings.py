@@ -145,3 +145,7 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 MEDIA_DIR = os.path.join(BASE_DIR,'media')
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 MEDIA_URL = '/media/'
+
+# this feature works in all browsers except chrome
+# this happens because chrome has a special feature to let you continue your session
+SESSION_EXPIRE_AT_BROWSER_CLOSE = True

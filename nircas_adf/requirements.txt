@@ -1,0 +1,14 @@
+asgiref==3.4.1
+django-braces==1.14.0
+django-grappelli==2.15.3
+django-model-utils==4.2.0
+Django==3.2.7
+fpdf==1.7.2
+Pillow==8.4.0
+pip==21.1.2
+pytz==2021.1
+setuptools==57.0.0
+six==1.16.0
+sqlparse==0.4.2
+swapper==1.1.2.post1
+wheel==0.36.2

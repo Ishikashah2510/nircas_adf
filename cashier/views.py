@@ -91,45 +91,53 @@ def place_order(request, total_cost=0):
 
 
 def view_cart(request, factor=0, item=''):
-    all_items = Cart.objects.filter(user_id=Users.objects.get(email=request.session['curr_user']))
-    all_items = all_items.values("item").annotate(item_count=models.Count("pk"))
-    total_cost = 0
+    try:
+        all_items = Cart.objects.filter(user_id=Users.objects.get(email=request.session['curr_user']))
+        all_items = all_items.values("item").annotate(item_count=models.Count("pk"))
+        total_cost = 0
 
-    offers = EverydayOffers.objects.none()
+        offers = EverydayOffers.objects.none()
 
-    for i in all_items:
-        q = FoodItems.objects.get(pk=i['item'])
-        if item == q:
-            total_cost += q.cost * i['item_count'] * (1-factor)
-        else:
-            total_cost += q.cost * i['item_count']
-        i['item'] = q
-        offers = offers.union(EverydayOffers.objects.filter(food_id=q))
+        for i in all_items:
+            q = FoodItems.objects.get(pk=i['item'])
+            if item == q:
+                total_cost += q.cost * i['item_count'] * (1-factor)
+            else:
+                total_cost += q.cost * i['item_count']
+            i['item'] = q
+            offers = offers.union(EverydayOffers.objects.filter(food_id=q))
 
-    form = UserInputForm()
+        form = UserInputForm()
 
-    return render(request, 'cashier/view_cart.html', {'item_quantity': all_items,
-                                                      'total_cost': total_cost,
-                                                      'offers': offers,
-                                                      'form': form})
-
+        return render(request, 'cashier/view_cart.html', {'item_quantity': all_items,
+                                                          'total_cost': total_cost,
+                                                          'offers': offers,
+                                                          'form': form})
+    except:
+        return HttpResponse('Please login first')
 
 def decrease_from_cart(request, name=''):
-    food_item = FoodItems.objects.get(name=name)
-    user = Users.objects.get(email=request.session['curr_user'])
-    c = Cart.objects.filter(item=food_item, user_id=user)
-    c[0].delete()
+    try:
+        food_item = FoodItems.objects.get(name=name)
+        user = Users.objects.get(email=request.session['curr_user'])
+        c = Cart.objects.filter(item=food_item, user_id=user)
+        c[0].delete()
 
-    return HttpResponseRedirect('/home/cashier/view_cart/')
+        return HttpResponseRedirect('/home/cashier/view_cart/')
+    except:
+        return HttpResponse('Please login first')
 
 
 def increase_from_cart(request, name=''):
-    food_item = FoodItems.objects.get(name=name)
-    user = Users.objects.get(email=request.session['curr_user'])
-    c = Cart(item=food_item, user_id=user)
-    c.save()
+    try:
+        food_item = FoodItems.objects.get(name=name)
+        user = Users.objects.get(email=request.session['curr_user'])
+        c = Cart(item=food_item, user_id=user)
+        c.save()
 
-    return HttpResponseRedirect('/home/cashier/view_cart/')
+        return HttpResponseRedirect('/home/cashier/view_cart/')
+    except:
+        return HttpResponse('Please login first')
 
 
 def view_items(request):
@@ -149,14 +157,17 @@ def view_items(request):
 
 
 def add_to_cart(request):
-    if request.method == 'POST':
-        pid = request.POST.get('pid')
-        food_object = FoodItems.objects.get(pk=pid)
-        q = Cart(item=food_object, user_id=Users.objects.get(email=request.session['curr_user']))
-        q.save()
+    try:
+        if request.method == 'POST':
+            pid = request.POST.get('pid')
+            food_object = FoodItems.objects.get(pk=pid)
+            q = Cart(item=food_object, user_id=Users.objects.get(email=request.session['curr_user']))
+            q.save()
 
-        return HttpResponseRedirect('/home/cashier/view_items/')
-    return HttpResponse('You cannot access this url')
+            return HttpResponseRedirect('/home/cashier/view_items/')
+        return HttpResponse('You cannot access this url')
+    except:
+        return HttpResponse('Please login first')
 
 
 def view_orders(request):

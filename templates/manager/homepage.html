@@ -78,6 +78,7 @@
 <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 </head>
 <body>
+{% ifequal request.session.user_type 'Manager' %}
 <ul>
   <li><a href="{% url 'access:home:manager:add_fooditem' %}" style="text-decoration: none; color: #DBC652">Add Food Item</a></li>
   <li><a class="navbar-link" href="{% url 'access:home:manager:view_fooditem' %}" style="text-decoration: none; color: #DBC652">View Food Items</a></li>
@@ -86,5 +87,8 @@
     <li><a class="navbar-link" href="{% url 'access:home:manager:view_feedback' %}" style="text-decoration: none; color: #DBC652">View User Feedback</a></li>
     <li><a class="navbar-link" href="{% url 'access:home:manager:del_redirect' %}" style="text-decoration: none; color: #DBC652">Delete a Cashier</a></li>
 </ul>
+    {% else %}
+    <strong>Please login first</strong>
+{% endifequal %}
 </body>
 </html>

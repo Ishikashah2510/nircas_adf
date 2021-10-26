@@ -28,6 +28,7 @@ def login(request):
                 curr_user.is_user_authenticated(True)
                 request.session['curr_user'] = curr_user.email
                 request.session['user_type'] = form.cleaned_data['user_type']
+                request.session.set_expiry(300)
                 return HttpResponseRedirect('/home/homepage/')
             except Exception as e:
                 print(form.cleaned_data['email_'], form.cleaned_data['password_'], form.cleaned_data['user_type'])
