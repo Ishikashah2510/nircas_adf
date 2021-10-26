@@ -9,5 +9,5 @@ class AddCreditForm(forms.ModelForm):
         fields = '__all__'
 
 
-class DeleteCustomerForm(forms.Form):
+class UserInputForm(forms.Form):
     user_id = forms.ModelChoiceField(queryset=Users.objects.filter(user_type='Customer'))

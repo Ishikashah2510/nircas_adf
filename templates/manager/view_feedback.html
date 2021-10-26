@@ -19,7 +19,7 @@
         {% include 'manager/option_panel.html' %}
 
         {% for feedback in feedbacks %}
-            <div class="feedback">
+            <div class="feedback" style="border-color: #ff007f">
                 <p class="heading">Feedback ID : {{ feedback.feedback_id }}</p>
                 <p class="heading">Feedback by : {{ feedback.by.name }}</p>
                 <p class="heading">Items purchased</p>
@@ -32,6 +32,9 @@
             </div>
             <br><br>
         {% endfor %}
+        {% if not feedbacks %}
+            <strong>No user has added any feedbacks yet</strong>
+        {% endif %}
     {% else %}
         <strong>You don't seem to be a Manager</strong>
     {% endifequal %}

@@ -1,0 +1,40 @@
+div.fooditem{
+    width: 300px;
+    height: 650px;
+    border-radius: 50px;
+    display: inline-block;
+    border: solid turquoise;
+    margin-left: 60px;
+}
+img{
+    width: 230px;
+    height: 200px;
+    border-radius: 50px;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 10px;
+    display: block;
+}
+p.name{
+    text-align: center;
+    font-family: 'Pacifico', cursive;
+    font-size: 20px;
+}
+p.description{
+    font-family: 'Comic Neue', cursive;
+    text-align: center;
+    word-wrap: break-word;
+}
+p.serves{
+    font-family: 'Comic Neue', cursive;
+    text-align: center;
+    font-weight: bold;
+}
+p.rating_head{
+    font-family: 'Comic Neue', cursive;
+    text-align: center;
+}
+p.price{
+    font-family: 'Comic Neue', cursive;
+    text-align: center;
+}

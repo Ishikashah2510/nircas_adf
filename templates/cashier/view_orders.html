@@ -10,9 +10,9 @@
 </head>
 <body>
 <center>
-    {% ifequal request.session.user_type 'Customer'  %}
+    {% ifequal request.session.user_type 'Cashier'  %}
 
-        {% include 'customer/option_panel.html' %}
+        {% include 'cashier/option_panel.html' %}
 
 
         {% if messages %}
@@ -31,6 +31,7 @@
         <th>Items Ordered</th>
         <th>Total Cost</th>
         <th>Order Placed On</th>
+        <th>Order Placed by</th>
         </thead>
         {% for order in orders %}
             <tr>
@@ -42,10 +43,8 @@
             </td>
             <td>{{ order.total_cost }}</td>
             <td>{{ order.order_date }}</td>
-            <td><a href="{% url 'access:home:customer:download_zip' order.order_id %}">Download the coupons</a> </td>
-            {% if not order|has_feedback %}
-            <td><a href="{% url 'access:home:customer:add_feedback' order.order_id %}">Give feedback</a></td>
-            {% endif %}
+            <td>{{ order.user_id.name }}</td>
+            <td><a href="{% url 'access:home:cashier:download_pdf' order.order_id %}">Download the Bill</a> </td>
             </tr>
         {% endfor %}
         </table>
@@ -53,7 +52,7 @@
             <strong>No orders placed yet! :(</strong>
         {% endif %}
     {% else %}
-        <strong>You don't seem to be a customer</strong>
+        <strong>You don't seem to be a cashier</strong>
     {% endifequal %}
 </center>
 </body>

@@ -1,6 +1,14 @@
+from django.core.exceptions import ValidationError
 from django.db import models
 
 # Create your models here.
+
+
+def validate_existence(value):
+    if FoodItems.objects.filter(name__iexact=value).exists():
+        raise ValidationError(
+            'Sorry, item already exists'
+        )
 
 
 class FoodItems(models.Model):
@@ -13,7 +21,7 @@ class FoodItems(models.Model):
         ('Breakfast', 'Breakfast')
     ]
 
-    name = models.CharField(max_length=100, unique=True)
+    name = models.CharField(max_length=100, unique=True, validators=[validate_existence])
     cost = models.FloatField()
     description = models.CharField(max_length=160)
     serves = models.IntegerField()

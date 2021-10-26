@@ -29,6 +29,9 @@
         {% endif %}
             <br><br>
         {% endfor %}
+        {% if not feedbacks %}
+            <strong>Sorry, you haven't added any feedbacks yet</strong>
+        {% endif %}
     {% else %}
         <strong>You don't seem to be a customer</strong>
     {% endifequal %}

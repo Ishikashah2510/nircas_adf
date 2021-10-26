@@ -13,6 +13,8 @@ def homepage(request):
             return HttpResponseRedirect('/home/manager/homepage/')
         elif request.session['user_type'] == 'Customer':
             return HttpResponseRedirect('/home/customer/homepage/')
+        elif request.session['user_type'] == 'Cashier':
+            return HttpResponseRedirect('/home/cashier/homepage/')
     except:
         pass
 

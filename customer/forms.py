@@ -10,5 +10,5 @@ class FeedBackForm(forms.ModelForm):
 
         widgets = {
             'by': forms.HiddenInput(attrs={'value': ''}),
-            'message': forms.Textarea(attrs={'rows': 40}),
+            'message': forms.Textarea(attrs={'rows':2}),
         }

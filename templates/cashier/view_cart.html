@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>View Cart</title>
+
+    {% load static %}
+    {% load val_at_ind %}
+
+    <link rel="stylesheet" href="{% static 'ViewCart.css' %}">
+    <link rel="stylesheet" href="{% static 'FormStyle.css' %}">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Amatic+SC:wght@700&family=birthstone&family=Seymour+One&Roboto+Mono:wght@200&display=swap" rel="stylesheet">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+</head>
+<body>
+<center>
+    {% ifequal request.session.user_type 'Cashier' %}
+
+        {% include 'cashier/option_panel.html' %}
+
+        <h1>Cart</h1>
+        <div class="tbl-header">
+        <table cellpadding="0" cellspacing="0" border="0">
+        <thead>
+        <th>Item Name</th>
+        <th></th>
+        <th>Item Quantity</th>
+        <th></th>
+        <th>Price for one item</th>
+        <th>Total price for the item</th>
+        </thead>
+        {% if not item_quantity %}
+            <br>
+            <strong>No items in cart</strong>
+        {% else %}
+        {% for item in item_quantity %}
+            <tr>
+            <td>{{ item.item.name }}</td>
+            <td><a href="{% url 'access:home:cashier:decrease_from_cart' item.item %}">&nbsp&nbspDecrease&nbsp&nbsp</a></td>
+            <td style="text-align: center">{{ item.item_count }}</td>
+            <td><a href="{% url 'access:home:cashier:increase_from_cart' item.item %}">&nbsp&nbspIncrease&nbsp&nbsp</a></td>
+            <td style="text-align: center">{{ item.item.cost }}</td>
+            <td style="text-align: center">{{ item.item.cost|multiply:item.item_count }}</td>
+            </tr>
+        {% endfor %}
+        </table>
+        </div>
+        <br>
+        <h2>The total cost is : {{ total_cost }}</h2>
+        <form method="post" action="{% url 'access:home:cashier:place_order' total_cost %}">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit" class="slide">
+                <div class="submit">Checkout</div>
+                <i class="fa fa-cutlery"></i>
+            </button>
+        </form>
+
+        <br><br>
+        {% for offer in offers %}
+            <div>
+            You get <b>{{ offer.discount }} % </b> discount on <b>{{ offer.food_id }}</b>
+                <button><a href="{% url 'access:home:cashier:apply_coupon' offer.pk %}" class="abcd">Apply coupon</a></button>
+            </div>
+            <br><br>
+        {% endfor %}
+        {% endif %}
+    {% else %}
+        <h1>I don't think you belong to this page as you don't seem to be a cashier</h1>
+    {% endifequal %}
+</center>
+</body>
+</html>

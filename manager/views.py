@@ -9,14 +9,16 @@ from customer.models import *
 
 
 def additem(request):
+    errors = ''
     if request.method == 'POST':
         form = AddFoodForm(request.POST, request.FILES)
         if form.is_valid():
             form.save()
             return HttpResponseRedirect('/home/manager/view_fooditem')
-
+        else:
+            errors = form.errors
     form = AddFoodForm()
-    return render(request, 'manager/add_fooditem.html', {'form': form})
+    return render(request, 'manager/add_fooditem.html', {'form': form, 'errors': errors})
 
 
 def view_items(request):

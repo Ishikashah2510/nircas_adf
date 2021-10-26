@@ -121,7 +121,7 @@ def place_order(request, total_cost=0):
         all_items = Cart.objects.filter(user_id=Users.objects.get(email=request.session['curr_user']))
         all_items_ = all_items.values("item").annotate(item_count=models.Count("pk"))
 
-        if total_cost == 0.0 or total_cost == 0:
+        if total_cost == 0:
             return HttpResponseRedirect('/home/customer/view_cart/')
 
         c = Credit.objects.get(user_id=user)
@@ -148,9 +148,9 @@ def place_order(request, total_cost=0):
 
             all_items.delete()
 
-            o = Orders.objects.filter(user_id=user)
-
-            return render(request, 'customer/view_orders.html', {'message': 'Order has been placed', 'orders': o})
+            CRITICAL = 50
+            messages.add_message(request, CRITICAL, 'Order Placed')
+            return HttpResponseRedirect('/home/customer/view_orders')
 
         else:
             CRITICAL = 50
@@ -163,10 +163,13 @@ def place_order(request, total_cost=0):
 
 
 def view_orders(request):
-    u = Users.objects.get(email=request.session['curr_user'])
-    o = Orders.objects.filter(user_id=u)[::-1]
+    try:
+        u = Users.objects.get(email=request.session['curr_user'])
+        o = Orders.objects.filter(user_id=u)[::-1]
 
-    return render(request, 'customer/view_orders.html', {'orders': o})
+        return render(request, 'customer/view_orders.html', {'orders': o})
+    except:
+        return HttpResponse('You dont seem to have logged in')
 
 
 def add_credit(request):

@@ -1,0 +1,12 @@
+div.thank_you{
+    width: 500px;
+    word-wrap: break-word;
+    border: 1.5px solid #f5dd5d;
+    font-family: 'Festive', cursive;
+    font-size: 30px;
+}
+
+p.thank_you{
+    font-family: 'Open Sans Condensed', sans-serif;
+    font-size: 40px;
+}

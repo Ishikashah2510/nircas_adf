@@ -10,6 +10,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Amatic+SC:wght@700&family=birthstone&family=Seymour+One&Roboto+Mono:wght@200&display=swap" rel="stylesheet">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="{% static 'thank_you.css' %}">
 </head>
 <body>
 <center>
@@ -35,7 +36,11 @@
         </button>
 
 </form>
-
+    <br><br>
+        <div class="thank_you">
+        Assume a payment portal after this step. We couldn't implement it given our level of
+        knowledge for the same
+        </div>
 {% else %}
     <strong>You don't seem to be a customer and hence you cannot add credit</strong>
 {% endifequal %}

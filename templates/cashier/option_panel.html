@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Option Panel</title>
+    <style type="text/css">
+		body {
+         background-color: #FFD580;
+         background-size: cover;
+        }
+        th, td{
+            padding-right: 70px;
+            padding-bottom: 20px;
+            text-align: center;
+        }
+    </style>
+
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+</head>
+<body>
+<div class="w3-bar w3-border w3-light-grey">
+    <a href='{% url "access:home:cashier:view_items" %}' class="w3-bar-item w3-button w3-hover-pale-blue" style="width: 15%; font-size: 20px;">View Food items</a>
+    <a href='{% url "access:home:cashier:view_cart" %}' class="w3-bar-item w3-button w3-hover-pale-blue" style="width: 14%; font-size: 20px;">View Cart</a>
+    <a href='{% url "access:home:cashier:add_credit" %}' class="w3-bar-item w3-button w3-hover-light-blue" style="width: 13%; font-size: 20px;">Add credit</a>
+    <a href='{% url "access:home:cashier:view_orders" %}' class="w3-bar-item w3-button w3-hover-light-blue" style="width: 13%; font-size: 20px;">View Orders</a>
+    <a href='{% url "access:home:cashier:view_offer" %}' class="w3-bar-item w3-button w3-hover-light-blue" style="width: 15%; font-size: 20px;">View Offers</a>
+    <a href='{% url "access:home:cashier:delete_customer" %}' class="w3-bar-item w3-button w3-hover-light-blue" style="width: 20%; font-size: 20px;">Close Customer's account</a>
+    <a href='{% url "access:logout" %}' class="w3-bar-item w3-button w3-hover-indigo" style="width: 10%; font-size: 20px">Logout</a>
+</div>
+<br><br>
+</body>
+</html>

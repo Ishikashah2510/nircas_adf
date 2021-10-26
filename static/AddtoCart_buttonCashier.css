@@ -14,18 +14,18 @@ button {
 	cursor: pointer;
 	font-size: 15px;
 	font-weight: bold;
-	color: #C04000;
+	color: #003153;
 	background: white;
-	border: 1px solid #CC7722;
-	box-shadow: 1px 1px 0 #EADDCA,
-		-1px -1px 0 #E1C16E,
-		-1px 1px 0 #EADDCA,
-		1px -1px 0 #E1C16E;
+	border: 1px solid #00FFFF;
+	box-shadow: 1px 1px 0 #F0FFFF,
+		-1px -1px 0 #A7C7E7,
+		-1px 1px 0 #F0FFFF,
+		1px -1px 0 #A7C7E7;
 	transition: 500ms ease-in-out;
 }
 
 button:hover {
-	box-shadow: 20px 5px 0 #EADDCA, -20px -5px 0 #E1C16E;
+	box-shadow: 20px 5px 0 #F0FFFF, -20px -5px 0 #A7C7E7;
 }
 
 button:focus {
