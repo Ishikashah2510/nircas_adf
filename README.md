@@ -1,7 +1,7 @@
 # NirCAS
 A canteen management system
 - [Table of contents](#nircas)
-  * [About NirCAS](#https://github.com/Ishikashah2510/nircas_adf/blob/master/README.md#about-nircas)
+  * [About NirCAS](#https://github.com/Ishikashah2510/nircas_adf/blob/master/README.md/#about-nircas)
   * [Motivation](#-h2-motivation--h2-)
   * [About the models](#-h2-about-the-models--h2-)
     + [Models in <i>access</i> application](#-h3-models-in--i-access--i--application--h3-)
