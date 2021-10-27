@@ -22,7 +22,9 @@ A canteen management system
 
 <h2>About the models</h2>
 <h3>Models in <i>access</i> application</h3>
+
 ```Python
+
 class Users(models.Model):
     user_types = [
         ('Customer', 'Customer'),
@@ -37,6 +39,7 @@ class Users(models.Model):
     user_type = models.CharField(choices=user_types,
                                  default='Customer',
                                  max_length=9)
+				 
 ```
 <br><br>
 The above model, Users is used to store the details of each kind of user. It is a basic model with a choices list for user type
