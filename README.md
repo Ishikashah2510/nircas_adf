@@ -44,8 +44,8 @@ class Users(models.Model):
 <br>
 The above model, Users is used to store the details of each kind of user. It is a basic model with a choices list for user type<br>
 <h3>Models in manager app</h3>
-```python
 
+```Python
 
 def validate_existence(value):
     if FoodItems.objects.filter(name__iexact=value).exists():
@@ -91,7 +91,8 @@ class EverydayOffers(models.Model):
 <br>
 The above model, EverydayOffers, is used to store the discount for the kind of food item selected. For example, if hot dog is a food item in the FoodItems table, we can store it's discount in this model. This model too supports CRUD functionality for the manager.<br>
 <h3>Models defined in the Cashier application</h3>
-```python
+
+```Python
 
 def unique_key_generator():
     length = random.randint(5, 10)
@@ -112,7 +113,8 @@ class Orders(models.Model):
 ```
 <br>
 The above model, Orders, stores the details of a particular Order, where the order_id is generated randomly using the unique_key_generator() function. The field <i>items</i> is a ManyToMany field to the model FoodItems through the model ItemQuantity (defined right below).<br>
-```python
+
+```Python
 
 class ItemQuantity(models.Model):
     order_id = models.ForeignKey(Orders, on_delete=models.DO_NOTHING)
@@ -126,7 +128,8 @@ class ItemQuantity(models.Model):
 ```
 <br>
 The model ItemQuantity stores the order_id and the food_id alongwith the rating found when Feedback is collected. It also stores the quantity of an item bought in a particular order.<br>
-```python
+
+```Python
 
 def unique_key_generator():
     length = random.randint(5, 10)
@@ -143,7 +146,8 @@ class Feedback(models.Model):
 ```
 <br>
 The model Feedback stores the feedback given by a customer.<br>
-```python
+
+```Python
 
 class Cart(models.Model):
     item = models.ForeignKey(FoodItems, on_delete=models.CASCADE)
@@ -153,7 +157,8 @@ class Cart(models.Model):
 ```
 <br>
 The model Cart stores the items currently in the Cart of a particular customer / cashier's order. We can use the filter() function of the model objects to find the items of a particular cart<br>
-```python
+
+```Python
 
 class Credit(models.Model):
     user_id = models.ForeignKey(Users, limit_choices_to={'user_type': 'Customer'}, on_delete=models.CASCADE)
