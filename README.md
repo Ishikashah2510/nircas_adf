@@ -208,3 +208,18 @@ The model Credit stores the credit of a particular customer. Every time the cust
 	Password : Password123#
 </div>
 </center>
+
+
+<h2>Steps to run the application</h2>
+<ol>
+	<li>First, download the zip or use the `git clone` command to get the source code in your local system</li>
+	<li>Next navigate to the repository's location in a command prompt</li>
+	<li>Next, run the command, `pip install -r nircas_adf\requirements.txt`.</li>
+	<li>After this, we are ready to make the migrations, so run `python manage.py makemigrations`. After this run, `python manage.py migrate`.</li>
+	<li>Last and final step, run the command, `python manage.py runserver` and you are ready to use the website. Hope you like it.</li>
+</ol>
+<br>
+Collaborators : <br>
+	<a href="https://github.com/krishnashah29">Krishna Shah</a><br>
+	<a href="https://github.com/GreevaKhant1708">Greeva Khant</a><br>
+	
