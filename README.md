@@ -79,8 +79,7 @@ class FoodItems(models.Model):
         return self.name
 
 ```
-<br>
-The above model, FoodItems, is used to store different food items which can be used with CRUD functionality by the manager. There is also a Image Field for the photo of the food.<br>
+The above model, FoodItems, is used to store different food items which can be used with CRUD functionality by the manager. There is also a Image Field for the photo of the food.<br><br>
 
 ```Python
 
@@ -89,8 +88,7 @@ class EverydayOffers(models.Model):
     food_id = models.ForeignKey(FoodItems, on_delete=models.CASCADE)
 
 ```
-<br>
-The above model, EverydayOffers, is used to store the discount for the kind of food item selected. For example, if hot dog is a food item in the FoodItems table, we can store it's discount in this model. This model too supports CRUD functionality for the manager.<br>
+The above model, EverydayOffers, is used to store the discount for the kind of food item selected. For example, if hot dog is a food item in the FoodItems table, we can store it's discount in this model. This model too supports CRUD functionality for the manager.<br><br>
 <h3>Models defined in the Cashier application</h3>
 
 ```Python
@@ -112,8 +110,7 @@ class Orders(models.Model):
         return f"{self.user_id} <-----> {self.total_cost}"
 
 ```
-<br>
-The above model, Orders, stores the details of a particular Order, where the order_id is generated randomly using the unique_key_generator() function. The field <i>items</i> is a ManyToMany field to the model FoodItems through the model ItemQuantity (defined right below).<br>
+The above model, Orders, stores the details of a particular Order, where the order_id is generated randomly using the unique_key_generator() function. The field <i>items</i> is a ManyToMany field to the model FoodItems through the model ItemQuantity (defined right below).<br><br>
 
 ```Python
 
@@ -127,8 +124,7 @@ class ItemQuantity(models.Model):
         return f"{self.quantity} of {self.food_id} was ordered by {self.order_id}"
 
 ```
-<br>
-The model ItemQuantity stores the order_id and the food_id alongwith the rating found when Feedback is collected. It also stores the quantity of an item bought in a particular order.<br>
+The model ItemQuantity stores the order_id and the food_id alongwith the rating found when Feedback is collected. It also stores the quantity of an item bought in a particular order.<br><br>
 <h3>Models defined in the customer application</h3>
 
 ```Python
@@ -146,8 +142,7 @@ class Feedback(models.Model):
     message = models.CharField(max_length=255)
 
 ```
-<br>
-The model Feedback stores the feedback given by a customer.<br>
+The model Feedback stores the feedback given by a customer.<br><br>
 
 ```Python
 
@@ -157,8 +152,7 @@ class Cart(models.Model):
     offer_id = models.ForeignKey(EverydayOffers, on_delete=models.CASCADE, null=True, blank=True)
 
 ```
-<br>
-The model Cart stores the items currently in the Cart of a particular customer / cashier's order. We can use the filter() function of the model objects to find the items of a particular cart<br>
+The model Cart stores the items currently in the Cart of a particular customer / cashier's order. We can use the filter() function of the model objects to find the items of a particular cart<br><br>
 
 ```Python
 
@@ -168,7 +162,6 @@ class Credit(models.Model):
     last_date_of_add = models.DateTimeField(auto_now=True)
 
 ```
-<br>
 The model Credit stores the credit of a particular customer. Every time the customer signs up, credit object is initialized.<br><br>
 <h2>App names and descriptions</h2>
 <i>Access</i> - for login and registration<br>
