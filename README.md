@@ -33,7 +33,7 @@ NIRCAS - Nirma Canteen Automation System
 
 <p>The users already in the database which can be used for testing</p>
 
-
+<center>
 <h4>Admin</h4>
 <div style="border: 1px solid black; text-align: center; height: 60px; width: 400px; padding: 10px;">Email : nircas.official@gmail.com<br>
 	User name : admin<br>
@@ -57,3 +57,4 @@ NIRCAS - Nirma Canteen Automation System
 	Email : palashshah@gmail.com<br>
 	Password : Password123#
 </div>
+</center>
