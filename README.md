@@ -37,7 +37,6 @@ class Users(models.Model):
     user_type = models.CharField(choices=user_types,
                                  default='Customer',
                                  max_length=9)
-
 ```
 <br><br>
 The above model, Users is used to store the details of each kind of user. It is a basic model with a choices list for user type
