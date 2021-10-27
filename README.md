@@ -1,5 +1,26 @@
 # NirCAS
 A canteen management system
+- [Table of contents](#nircas)
+  * [<h2>About NirCAS</h2>](#-h2-about-nircas--h2-)
+  * [<h2>Motivation</h2>](#-h2-motivation--h2-)
+  * [<h2>About the models</h2>](#-h2-about-the-models--h2-)
+    + [<h3>Models in <i>access</i> application</h3>](#-h3-models-in--i-access--i--application--h3-)
+    + [<h3>Models in manager app</h3>](#-h3-models-in-manager-app--h3-)
+    + [<h3>Models defined in the Cashier application</h3>](#-h3-models-defined-in-the-cashier-application--h3-)
+    + [<h3>Models defined in the customer application</h3>](#-h3-models-defined-in-the-customer-application--h3-)
+  * [<h2>App names and descriptions</h2>](#-h2-app-names-and-descriptions--h2-)
+  * [<h2>Details about the responsibilities given to different types of users</h2>](#-h2-details-about-the-responsibilities-given-to-different-types-of-users--h2-)
+    + [<h3>Admin</h3>](#-h3-admin--h3-)
+    + [<h3>Manager</h3>](#-h3-manager--h3-)
+    + [<h3>Cashier</h3>](#-h3-cashier--h3-)
+    + [<h3>Customer</h3>](#-h3-customer--h3-)
+      - [<h4>Admin</h4>](#-h4-admin--h4-)
+      - [<h4>Manager</h4>](#-h4-manager--h4-)
+      - [<h4>Cashier</h4>](#-h4-cashier--h4-)
+      - [<h4>Customer</h4>](#-h4-customer--h4-)
+  * [<h2>Steps to run the application</h2>](#-h2-steps-to-run-the-application--h2-)
+  * [<h2>Collaborators </h2> <br>](#-h2-collaborators---h2---br-)
+
 <br><br>
 <h2>About NirCAS</h2>
 <p>We have built this project as part of our Innovative assignment for the course 'Application Development Frameworks'. The backend has been built with <a href="https://www.djangoproject.com/">Django</a>. The frontend used has CSS and JavaScript. The name NirCAS has roots in the name of our University as well as describes the aim of the project - <i><b>Nir</b>ma <b>C</b>anteen <b>A</b>utomation <b>S</b>ystem.</i></p>
