@@ -58,3 +58,9 @@ NIRCAS - Nirma Canteen Automation System
 	Password : Password123#
 </div>
 </center>
+
+def validate_existence(value):
+    if FoodItems.objects.filter(name__iexact=value).exists():
+        raise ValidationError(
+            'Sorry, item already exists'
+        )
