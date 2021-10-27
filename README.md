@@ -21,6 +21,7 @@ A canteen management system
 </p>
 
 <h2>About the models</h2>
+<p>A model is the single, definitive source of information about your data. It contains the essential fields and behaviors of the data you’re storing. Generally, each model maps to a single database table.</p><br>
 <h3>Models in <i>access</i> application</h3>
 
 ```Python
