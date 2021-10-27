@@ -1,5 +1,5 @@
-# nircas_adf
-NIRCAS - Nirma Canteen Automation System
+# NirCAS
+
 <br><br>
 <h2>About NirCAS</h2>
 <p>We have built this project as part of our Innovative assignment for the course 'Application Development Frameworks'. The backend has been built with <a href="https://www.djangoproject.com/">Django</a>. The frontend used has CSS and JavaScript. The name NirCAS has roots in the name of our University as well as describes the aim of the project - <i><b>Nir</b>ma <b>C</b>anteen <b>A</b>utomation <b>S</b>ystem.</i></p>
