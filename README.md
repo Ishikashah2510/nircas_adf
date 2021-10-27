@@ -1,9 +1,9 @@
 # NirCAS
 A canteen management system
 - [Table of contents](#nircas)
-  * [<h2>About NirCAS</h2>](#-h2-about-nircas--h2-)
-  * [<h2>Motivation</h2>](#-h2-motivation--h2-)
-  * [<h2>About the models</h2>](#-h2-about-the-models--h2-)
+  * [About NirCAS](#-h2-about-nircas--h2-)
+  * [Motivation](#-h2-motivation--h2-)
+  * [About the models](#-h2-about-the-models--h2-)
     + [<h3>Models in <i>access</i> application</h3>](#-h3-models-in--i-access--i--application--h3-)
     + [<h3>Models in manager app</h3>](#-h3-models-in-manager-app--h3-)
     + [<h3>Models defined in the Cashier application</h3>](#-h3-models-defined-in-the-cashier-application--h3-)
