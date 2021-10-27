@@ -14,13 +14,13 @@ A canteen management system
     + [Manager](#manager)
     + [Cashier](#cashier)
     + [Customer](#customer)
-    + [Credentials for testing](#-h3-credentials-for-testing)
-      - [Admin](#-h4-admin)
-      - [Manager](#-h4-manager)
-      - [Cashier](#-h4-cashier)
-      - [Customer](#-h4-customer--h4-)
-  * [Steps to run the application](#-h2-steps-to-run-the-application--h2-)
-  * [Collaborators](#-h2-collaborators---h2---br-)
+    + [Credentials for testing](#credentials-for-testing)
+      - [Admin](#admin-1)
+      - [Manager](#manager-1)
+      - [Cashier](#cashier-1)
+      - [Customer](#customer-1)
+  * [Steps to run the application](#steps-to-run-the-application)
+  * [Collaborators](#collaborators)
 
 <br><br>
 <h2>About NirCAS</h2>
