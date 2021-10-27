@@ -5,7 +5,6 @@ from .models import *
 from .forms import *
 from datetime import date
 from access.isValidPassword import *
-from . import user_object
 from home.views import *
 from access.send_email import *
 from customer.models import *
