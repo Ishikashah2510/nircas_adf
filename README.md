@@ -22,21 +22,23 @@ A canteen management system
 
 <h2>About the models</h2>
 <h3>Models in <i>access</i> application</h3>
-<!-- HTML generated using hilite.me --><div style="background: #ffffff; overflow:auto;width:auto;border:solid gray;border-width:.1em .1em .1em .8em;padding:.2em .6em;"><pre style="margin: 0; line-height: 125%"><span style="color: #008800; font-weight: bold">class</span> <span style="color: #BB0066; font-weight: bold">Users</span>(models<span style="color: #333333">.</span>Model):
-    user_types <span style="color: #333333">=</span> [
-        (<span style="background-color: #fff0f0">&#39;Customer&#39;</span>, <span style="background-color: #fff0f0">&#39;Customer&#39;</span>),
-        (<span style="background-color: #fff0f0">&#39;Cashier&#39;</span>, <span style="background-color: #fff0f0">&#39;Cashier&#39;</span>),
-        (<span style="background-color: #fff0f0">&#39;Manager&#39;</span>, <span style="background-color: #fff0f0">&#39;Manager&#39;</span>)
+```python
+class Users(models.Model):
+    user_types = [
+        ('Customer', 'Customer'),
+        ('Cashier', 'Cashier'),
+        ('Manager', 'Manager')
     ]
-    name <span style="color: #333333">=</span> models<span style="color: #333333">.</span>CharField(max_length<span style="color: #333333">=</span><span style="color: #0000DD; font-weight: bold">100</span>)
-    email <span style="color: #333333">=</span> models<span style="color: #333333">.</span>EmailField(primary_key<span style="color: #333333">=</span><span style="color: #008800; font-weight: bold">True</span>)
-    password <span style="color: #333333">=</span> models<span style="color: #333333">.</span>CharField(max_length<span style="color: #333333">=</span><span style="color: #0000DD; font-weight: bold">30</span>)
-    birthdate <span style="color: #333333">=</span> models<span style="color: #333333">.</span>DateField(blank<span style="color: #333333">=</span><span style="color: #008800; font-weight: bold">True</span>, null<span style="color: #333333">=</span><span style="color: #008800; font-weight: bold">True</span>)
-    mobile_no <span style="color: #333333">=</span> models<span style="color: #333333">.</span>IntegerField(unique<span style="color: #333333">=</span><span style="color: #008800; font-weight: bold">True</span>)
-    user_type <span style="color: #333333">=</span> models<span style="color: #333333">.</span>CharField(choices<span style="color: #333333">=</span>user_types,
-                                 default<span style="color: #333333">=</span><span style="background-color: #fff0f0">&#39;Customer&#39;</span>,
-                                 max_length<span style="color: #333333">=</span><span style="color: #0000DD; font-weight: bold">9</span>)
-</pre></div>
+    name = models.CharField(max_length=100)
+    email = models.EmailField(primary_key=True)
+    password = models.CharField(max_length=30)
+    birthdate = models.DateField(blank=True, null=True)
+    mobile_no = models.IntegerField(unique=True)
+    user_type = models.CharField(choices=user_types,
+                                 default='Customer',
+                                 max_length=9)
+
+```
 <br><br>
 The above model, Users is used to store the details of each kind of user. It is a basic model with a choices list for user type
 <h2>App names and descriptions</h2>
