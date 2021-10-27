@@ -16,9 +16,15 @@ A canteen management system
 	<ul>
 		<li>We have added the functionality of the name of the food item being specified on the coupon to avoid confusion with the employee giving the food item.</li>
 		<li>We gave the option to a customer to work through a credit system to avoid issues with cash, like, worrying about the exact change or having to exchange money in times of situations where a disease transmittable via touch like COVID-19.</li>
-		<li>we have proposed a 3 level heirarchy in the maintenance of the website with user types like 'Admin', 'Manager', 'Cashier' and 'Customer'. More details have been described below.</li>
+		<li>we have proposed a 3 level heirarchy in the maintenance of the website with user types like 'Admin', 'Manager', 'Cashier' and 'Customer'. More details have been described <a href="">below</a>.</li>
 	</ul>
 </p>
+<h2>App names and descriptions</h2>
+<i>Access</i> - for login and registration<br>
+<i>Home</i> - for homepage and redirections from there<br>
+<i>Cashier</i> - for cashier related functionalities<br>
+<i>Manager</i> - For manager related functionalities<br>
+<i>Customers</i> - For customer related functionalities<br>
 <h2>Details about the responsibilities given to different types of users</h2>
 <h3>Admin</h3>
 <p>The admin can delete any data pertaining to any user, fooditem, order etc.<br>The admin module uses frontend from the <i><a href="https://django-grappelli.readthedocs.io/en/latest/#">Grapelli</a></i> application of django.</p>
