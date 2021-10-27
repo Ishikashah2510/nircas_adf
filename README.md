@@ -20,7 +20,7 @@ A canteen management system
       - [Cashier](#cashier-1)
       - [Customer](#customer-1)
   * [Steps to run the application](#steps-to-run-the-application)
-  * [Collaborators](#collaborators)
+  * [Collaborators](#collaborators--)
 
 <br><br>
 <h2>About NirCAS</h2>
