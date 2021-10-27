@@ -4,22 +4,23 @@ A canteen management system
   * [About NirCAS](#-h2-about-nircas--h2-)
   * [Motivation](#-h2-motivation--h2-)
   * [About the models](#-h2-about-the-models--h2-)
-    + [<h3>Models in <i>access</i> application</h3>](#-h3-models-in--i-access--i--application--h3-)
-    + [<h3>Models in manager app</h3>](#-h3-models-in-manager-app--h3-)
-    + [<h3>Models defined in the Cashier application</h3>](#-h3-models-defined-in-the-cashier-application--h3-)
-    + [<h3>Models defined in the customer application</h3>](#-h3-models-defined-in-the-customer-application--h3-)
-  * [<h2>App names and descriptions</h2>](#-h2-app-names-and-descriptions--h2-)
-  * [<h2>Details about the responsibilities given to different types of users</h2>](#-h2-details-about-the-responsibilities-given-to-different-types-of-users--h2-)
-    + [<h3>Admin</h3>](#-h3-admin--h3-)
-    + [<h3>Manager</h3>](#-h3-manager--h3-)
-    + [<h3>Cashier</h3>](#-h3-cashier--h3-)
-    + [<h3>Customer</h3>](#-h3-customer--h3-)
-      - [<h4>Admin</h4>](#-h4-admin--h4-)
-      - [<h4>Manager</h4>](#-h4-manager--h4-)
-      - [<h4>Cashier</h4>](#-h4-cashier--h4-)
-      - [<h4>Customer</h4>](#-h4-customer--h4-)
-  * [<h2>Steps to run the application</h2>](#-h2-steps-to-run-the-application--h2-)
-  * [<h2>Collaborators </h2> <br>](#-h2-collaborators---h2---br-)
+    + [Models in <i>access</i> application](#-h3-models-in--i-access--i--application--h3-)
+    + [Models in <i>manager</i> app](#-h3-models-in-manager-app--h3-)
+    + [Models defined in the <i>Cashier</i> application](#-h3-models-defined-in-the-cashier-application--h3-)
+    + [Models defined in the <i>customer</i> application](#-h3-models-defined-in-the-customer-application--h3-)
+  * [App names and descriptions](#-h2-app-names-and-descriptions--h2-)
+  * [Details about the responsibilities given to different types of users](#-h2-details-about-the-responsibilities-given-to-different-types-of-users--h2-)
+    + [Admin](#-h3-admin--h3-)
+    + [Manager](#-h3-manager--h3-)
+    + [Cashier](#-h3-cashier--h3-)
+    + [Customer](#-h3-customer--h3-)
+    + [Credentials for testing](#-h3-credentials-for-testing--h3-)
+      - [Admin](#-h4-admin--h4-)
+      - [Manager](#-h4-manager--h4-)
+      - [Cashier](#-h4-cashier--h4-)
+      - [Customer](#-h4-customer--h4-)
+  * [Steps to run the application](#-h2-steps-to-run-the-application--h2-)
+  * [Collaborators](#-h2-collaborators---h2---br-)
 
 <br><br>
 <h2>About NirCAS</h2>
@@ -203,6 +204,7 @@ The model Credit stores the credit of a particular customer. Every time the cust
 
 ![TJsJBFFvNY_noodles](https://user-images.githubusercontent.com/63162622/139084257-4413ea4a-5be8-4ea2-bc27-dbbe2a2bbf6d.jpg)
 
+<h3>Credentials for testing</h3><br>
 <p>The users already in the database which can be used for testing</p>
 
 <center>
