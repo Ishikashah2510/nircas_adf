@@ -22,7 +22,7 @@ A canteen management system
 
 <h2>About the models</h2>
 <h3>Models in <i>access</i> application</h3>
-```python
+```Python
 class Users(models.Model):
     user_types = [
         ('Customer', 'Customer'),
