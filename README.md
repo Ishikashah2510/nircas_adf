@@ -81,7 +81,8 @@ class FoodItems(models.Model):
 ```
 <br>
 The above model, FoodItems, is used to store different food items which can be used with CRUD functionality by the manager. There is also a Image Field for the photo of the food.<br>
-```python
+
+```Python
 
 class EverydayOffers(models.Model):
     discount = models.FloatField()
@@ -128,6 +129,7 @@ class ItemQuantity(models.Model):
 ```
 <br>
 The model ItemQuantity stores the order_id and the food_id alongwith the rating found when Feedback is collected. It also stores the quantity of an item bought in a particular order.<br>
+<h3>Models defined in the customer application</h3>
 
 ```Python
 
