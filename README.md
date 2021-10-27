@@ -41,8 +41,128 @@ class Users(models.Model):
                                  max_length=9)
 				 
 ```
-<br><br>
-The above model, Users is used to store the details of each kind of user. It is a basic model with a choices list for user type
+<br>
+The above model, Users is used to store the details of each kind of user. It is a basic model with a choices list for user type<br>
+<h3>Models in manager app</h3>
+```python
+
+
+def validate_existence(value):
+    if FoodItems.objects.filter(name__iexact=value).exists():
+        raise ValidationError(
+            'Sorry, item already exists'
+        )
+
+
+class FoodItems(models.Model):
+    category_choices = [
+        ('Punjabi', 'Punjabi'),
+        ('Chinese', 'Chinese'),
+        ('Sandwich', 'Sandwich'),
+        ('Fast food', 'Fast food'),
+        ('South Indian', 'South Indian'),
+        ('Breakfast', 'Breakfast')
+    ]
+
+    name = models.CharField(max_length=100, unique=True, validators=[validate_existence])
+    cost = models.FloatField()
+    description = models.CharField(max_length=160)
+    serves = models.IntegerField()
+    rating = models.FloatField(default=5)
+    category = models.CharField(max_length=100,
+                                choices=category_choices,
+                                default='Punjabi')
+    photo = models.ImageField(upload_to='food/',
+                              default='food/default_food.jfif')
+
+    def __str__(self):
+        return self.name
+
+```
+<br>
+The above model, FoodItems, is used to store different food items which can be used with CRUD functionality by the manager. There is also a Image Field for the photo of the food.<br>
+```python
+
+class EverydayOffers(models.Model):
+    discount = models.FloatField()
+    food_id = models.ForeignKey(FoodItems, on_delete=models.CASCADE)
+
+```
+<br>
+The above model, EverydayOffers, is used to store the discount for the kind of food item selected. For example, if hot dog is a food item in the FoodItems table, we can store it's discount in this model. This model too supports CRUD functionality for the manager.<br>
+<h3>Models defined in the Cashier application</h3>
+```python
+
+def unique_key_generator():
+    length = random.randint(5, 10)
+    secret_code = ''.join(random.choices(string.ascii_letters + string.digits, k=length))
+    return secret_code
+
+
+class Orders(models.Model):
+    order_id = models.CharField(max_length=10, unique=True, default=unique_key_generator, auto_created=True)
+    user_id = models.ForeignKey(Users, limit_choices_to={'user_type': 'Customer'}, on_delete=models.CASCADE)
+    total_cost = models.FloatField(default=0)
+    items = models.ManyToManyField(FoodItems, through='ItemQuantity', through_fields=('order_id', 'food_id'))
+    order_date = models.DateTimeField(auto_now=True)
+
+    def __str__(self):
+        return f"{self.user_id} <-----> {self.total_cost}"
+
+```
+<br>
+The above model, Orders, stores the details of a particular Order, where the order_id is generated randomly using the unique_key_generator() function. The field <i>items</i> is a ManyToMany field to the model FoodItems through the model ItemQuantity (defined right below).<br>
+```python
+
+class ItemQuantity(models.Model):
+    order_id = models.ForeignKey(Orders, on_delete=models.DO_NOTHING)
+    quantity = models.IntegerField()
+    rating = models.FloatField(default=5.0)
+    food_id = models.ForeignKey(FoodItems, on_delete=models.DO_NOTHING)
+
+    def __str__(self):
+        return f"{self.quantity} of {self.food_id} was ordered by {self.order_id}"
+
+```
+<br>
+The model ItemQuantity stores the order_id and the food_id alongwith the rating found when Feedback is collected. It also stores the quantity of an item bought in a particular order.<br>
+```python
+
+def unique_key_generator():
+    length = random.randint(5, 10)
+    secret_code = ''.join(random.choices(string.ascii_letters + string.digits, k=length))
+    return secret_code
+
+
+class Feedback(models.Model):
+    feedback_id = models.CharField(primary_key=True, max_length=10, auto_created=True, default=unique_key_generator)
+    by = models.ForeignKey(Users, limit_choices_to={'user_type': 'Customer'}, on_delete=models.DO_NOTHING, blank=True, null=True)
+    order_id = models.ForeignKey(Orders, on_delete=models.CASCADE)
+    message = models.CharField(max_length=255)
+
+```
+<br>
+The model Feedback stores the feedback given by a customer.<br>
+```python
+
+class Cart(models.Model):
+    item = models.ForeignKey(FoodItems, on_delete=models.CASCADE)
+    user_id = models.ForeignKey(Users, limit_choices_to={'user_type': 'Customer'}, on_delete=models.CASCADE)
+    offer_id = models.ForeignKey(EverydayOffers, on_delete=models.CASCADE, null=True, blank=True)
+
+```
+<br>
+The model Cart stores the items currently in the Cart of a particular customer / cashier's order. We can use the filter() function of the model objects to find the items of a particular cart<br>
+```python
+
+class Credit(models.Model):
+    user_id = models.ForeignKey(Users, limit_choices_to={'user_type': 'Customer'}, on_delete=models.CASCADE)
+    credit = models.FloatField(default=0)
+    last_date_of_add = models.DateTimeField(auto_now=True)
+
+```
+<br>
+The model Credit stores the credit of a particular customer. Every time the customer signs up, credit object is initialized.<br><br>
 <h2>App names and descriptions</h2>
 <i>Access</i> - for login and registration<br>
 <i>Home</i> - for homepage and redirections from there<br>
